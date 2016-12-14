@@ -1,0 +1,163 @@
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	background-color: #ddd8c4;
+}
+
+header, footer {
+	background-color: #84b59f;
+	width:100%;
+}
+
+.header {
+	position:relative;
+	padding: 10px;
+}
+
+.logo {
+	font-size: 2.5em;
+	color: #011936;
+	text-decoration: none;
+}
+
+.nav-links {
+	position:absolute;
+	font-size:1em;
+	right:10px;
+	top: 25px;
+}
+
+.nav-link {
+	display: inline-block;
+	color: #465362;
+}
+
+.nav-details {
+	color: #465362;
+	text-decoration:none;
+}
+
+.nav-details:hover {
+	font-weight:bold;
+}
+
+.homepage-main, .join-sign-in-main {
+	padding: 10px;
+}
+
+.homepage-headline, .sign-in-headline {
+	font-size: 1.7em;
+	color: #011936;
+}
+
+.homepage-headline {
+	margin-top:45px;
+}
+
+.homepage-details {
+	margin-top: 10px;
+	margin-bottom:10px;
+	font-size:1.1em;
+
+}
+
+.homepage-image {
+	width:100%;
+}
+
+.value-props {
+	background-color: #50808e;
+}
+
+.value-prop {
+	text-align: center;
+}
+
+.value-prop-icon {
+	font-size:3em;
+	padding-top:20px;
+}
+
+.homepage-button, .join-sign-in-button  {
+	background-color: #c0dfa1; 
+	border-radius: 15px;
+	border-color: #c0dfa1;
+	
+}
+
+.homepage-button {
+	width: 150px;
+	font-size: 1em;
+	height: 40px;
+}
+
+button:hover {
+	font-weight: bold;
+}
+
+.value-prop-details {
+	font-size:1em;
+	padding-bottom:20px;
+}
+
+footer {
+	text-align:center;
+	padding: 30px;
+}
+
+.join-sign-in-main {
+	text-align: center;
+}
+
+.join-sign-in-toggle {
+	display:block;
+	font-size: .8em;
+	margin-top:3px;
+}
+
+.join-sign-in-toggle > a {
+	text-decoration: none;
+	color: #465362;
+	font-weight: bold;
+}
+
+.join-sign-in-toggle > a:hover {
+	text-decoration: underline;
+}
+
+form {
+	background-color: #50808e;
+	display:inline-block;
+	padding: 25px 15px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border-radius: 20px;
+
+}
+
+.form-section {
+	margin-bottom:10px;
+	text-align:left;
+}
+
+label {
+	display:block;
+	margin-bottom: 2px;
+}
+
+input {
+	min-width: 200px;
+}
+
+.join-sign-in-button {
+	font-size: .75em;
+}
+
+@media only screen and (max-width: 640px) {
+	form {
+		width: 100%;
+	}
+	.form-section {
+		text-align:center;
+	}
+}
+

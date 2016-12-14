@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="UTF-8">
+		<title>PetTracker</title>
+		<!-- Responsive viewport tag, tells small screens that it's responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--css reset for browser normalization -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" >
+		<link rel="stylesheet" type="text/css" href="../css/grid.css" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css" />
+		
+		<script src="https://use.fontawesome.com/7026219ebd.js"></script>
+	</head>
+	<body>
+		<header>
+			<div class="row header">
+				<div class="col-12">
+					<nav>
+						<div>
+							<a class="logo" href="static/html/index.html">PetTracker</a>
+						</div>
+						<div class="nav-links">
+							<ul>
+								<li class="nav-link">
+									<a href="static/html/signIn.html" class="nav-details">Join Now |</a>
+								</li>
+								<li class="nav-link">
+									<a href="static/html/signIn.html" class="nav-details"> Sign In</a>
+								 </li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</header>	
+		<div class="row join-sign-in-main">
+			<div class="col-12">
+				<h1 class="sign-in-headline">
+					Get Started With PetTracker
+				</h1>
+				<span class="join-sign-in-toggle">
+					Already a member? <a href="#" class="sign-in-link">Sign In Now</a>
+				</span>
+				<form role="form" method="POST">
+					<div class="form-section">
+						<label for="first-name">First Name</label>
+						<input type="text" class="form-entry" id="first-name" name="first-name" required>
+					</div>
+					<div class="form-section">
+						<label for="last-name">Last Name </label>
+						<input type="text" class="form-entry" id="last-name" name="last-name" required>
+					</div>
+					<div class="form-section">
+						<label for="email">Email</label>
+						<input type="email" class="form-entry" id="email" name="email" required>
+					</div>
+					<div class="form-section">
+						<label for="password">Password  </label>
+						<input type="password" class="form-entry" id="password" name="password" required>
+					</div>
+					<button type="submit" class="join-sign-in-button">
+						Join PetTracker
+					</button>	
+				</form>
+			</div>
+		</div>
+		
+		<footer>
+			<div class="row footer">
+				<div class="col-12">
+						Connect with us on Facebook, Twitter and Instagram
+				</div>
+			</div>
+		</footer>
+
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"   integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="   crossorigin="anonymous"></script>
+		<script src="app.js"></script> 
+	</body>
+</html>
