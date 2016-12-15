@@ -12,7 +12,7 @@ Base = declarative_base()
 Session = sessionmaker(bind=engine)
 session = Session()
 
-class User(Base): 
+class User(Base, UserMixin): 
     __tablename__ = "users"
     
     id = Column(Integer, primary_key=True)
@@ -39,13 +39,22 @@ class Pet(Base):
     medications = relationship("Medication", backref="pet")
     food = relationship("Food", uselist=False, backref="pet")
     records = relationship("Record", backref="pet")
+
+    def as_dictionary(self): 
+        pet = {
+            "id": self.id, 
+            "name": self.name, 
+            "birthdate": self.birthdate, 
+            "owner_id": self.owner_id, 
+            "vet_id": self.vet_id
+        }
     
 class Vet(Base): 
     __tablename__ = "vets"
     
     id = Column(Integer, primary_key=True)
     vet_name = Column(String(128))
-    vet_phone = Column(String(11))
+    vet_phone = Column(String(15))
     vet_email = Column(String(128))
     
     pets = relationship("Pet", backref="vet")

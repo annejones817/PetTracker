@@ -18,15 +18,15 @@
 				<div class="col-12">
 					<nav>
 						<div>
-							<a class="logo" href="static/html/index.html">PetTracker</a>
+							<a class="logo" href="../index.html">PetTracker</a>
 						</div>
 						<div class="nav-links">
 							<ul>
 								<li class="nav-link">
-									<a href="static/html/signIn.html" class="nav-details">Join Now |</a>
+									<a href="#" class="nav-details">Join Now |</a>
 								</li>
 								<li class="nav-link">
-									<a href="static/html/signIn.html" class="nav-details"> Sign In</a>
+									<a href="#" class="nav-details"> Sign In</a>
 								 </li>
 							</ul>
 						</div>
@@ -34,26 +34,29 @@
 				</div>
 			</div>
 		</header>	
-		<div class="row join-sign-in-main">
+		<div class="row join-sign-in-main js-join">
 			<div class="col-12">
 				<h1 class="sign-in-headline">
 					Get Started With PetTracker
 				</h1>
-				<span class="join-sign-in-toggle">
-					Already a member? <a href="#" class="sign-in-link">Sign In Now</a>
-				</span>
-				<form role="form" method="POST">
-					<div class="form-section">
-						<label for="first-name">First Name</label>
-						<input type="text" class="form-entry" id="first-name" name="first-name" required>
+					<div class="join-sign-in-toggle">
+						<span class="join-sign-in-toggle-question">
+						Already a member?</span> 
+						<a href="#" class="sign-in-link">Sign In Now</a>
 					</div>
-					<div class="form-section">
+				
+				<form role="form" method="POST" class="js-sign-in-form">
+					<div class="form-section name">
+						<label for="first-name">First Name</label>
+						<input type="text" class="form-entry name-entry" id="first-name" name="first-name" required>
+					</div>
+					<div class="form-section name">
 						<label for="last-name">Last Name </label>
-						<input type="text" class="form-entry" id="last-name" name="last-name" required>
+						<input type="text" class="form-entry name-entry" id="last-name" name="last-name" required>
 					</div>
 					<div class="form-section">
 						<label for="email">Email</label>
-						<input type="email" class="form-entry" id="email" name="email" required>
+						<input type="email" class="form-entry js-email" id="email" name="email" required>
 					</div>
 					<div class="form-section">
 						<label for="password">Password  </label>
@@ -75,6 +78,7 @@
 		</footer>
 
 		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"   integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="   crossorigin="anonymous"></script>
-		<script src="app.js"></script> 
+		<script src="../js/app.js"></script> 
+		<script src="../js/dashboard.js"></script>
 	</body>
 </html>
