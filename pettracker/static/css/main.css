@@ -41,7 +41,7 @@ header, footer {
 	font-weight:bold;
 }
 
-.homepage-main, .join-sign-in-main {
+.homepage-main, .join-sign-in-main, .dashboard-main {
 	padding: 10px;
 }
 
@@ -78,7 +78,7 @@ header, footer {
 	padding-top:20px;
 }
 
-.homepage-button, .join-sign-in-button, .add-pet-button  {
+button {
 	background-color: #c0dfa1; 
 	border-radius: 15px;
 	border-color: #c0dfa1;
@@ -169,10 +169,11 @@ input {
 	border: 1px solid black;
 	display:inline-block;
 	margin-top:10px;
+	margin-right:5px;
 	padding: 15px;
 	border-radius: 15px;
-	min-height: 150px;
-	min-width: 150px;
+	min-height: 200px;
+	min-width: 200px;
 }
 
 .add-pet-button {

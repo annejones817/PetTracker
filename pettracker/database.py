@@ -44,10 +44,11 @@ class Pet(Base):
         pet = {
             "id": self.id, 
             "name": self.name, 
-            "birthdate": self.birthdate, 
+            # Not json serializable "birthdate": self.birthdate, 
             "owner_id": self.owner_id, 
             "vet_id": self.vet_id
         }
+        return pet
     
 class Vet(Base): 
     __tablename__ = "vets"
