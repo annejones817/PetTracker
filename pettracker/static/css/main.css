@@ -24,7 +24,6 @@ header, footer {
 	font-size:1em;
 	right:10px;
 	top: 25px;
-	display:none;
 }
 
 .nav-link {
@@ -41,11 +40,19 @@ header, footer {
 	font-weight:bold;
 }
 
-.homepage-main, .join-sign-in-main, .dashboard-main {
+.homepage-main, 
+.join-sign-in-main, 
+.dashboard-main, 
+.add-pet-main, 
+.edit-pet-main {
 	padding: 10px;
 }
 
-.homepage-headline, .sign-in-headline, .dashboard-headline {
+.homepage-headline, 
+.sign-in-headline, 
+.dashboard-headline
+.edit-pet-headline, 
+.pet-details-headline {
 	font-size: 1.7em;
 	color: #011936;
 }
@@ -105,7 +112,9 @@ footer {
 	padding: 30px;
 }
 
-.join-sign-in-main {
+.join-sign-in-main, 
+.add-pet-main, 
+.edit-pet-main {
 	text-align: center;
 }
 
@@ -186,6 +195,45 @@ input {
 	padding: 10px;
 	margin-top: 10px;
 	min-height: 150px;
-
 }
+
+.pet-details-headline {
+	margin: 10px 0px;
+}
+
+.change-photo {
+	font-size: .75em;
+}
+
+.pet-details {
+	margin-top:5px;
+}
+
+.pet-details-section-headline {
+	background-color: #82a3a1;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+.edit-pet-details-button-container {
+	text-align: right;
+	padding-top: 10px;
+}
+
+.edit-pet-details-button, 
+.save-pet-details-button {
+	padding: 5px 40px;
+	font-size: .9em;
+}
+
+@media only screen and (max-width: 640px) {
+	.edit-pet-details-button, 
+	.save-pet-details-button {
+		width: 50%;
+	}
+	.edit-pet-details-button-container {
+		text-align: center;
+	}
+}
+
 

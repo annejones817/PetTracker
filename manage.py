@@ -4,7 +4,7 @@ from flask_migrate import Migrate, MigrateCommand
 
 from getpass import getpass
 from werkzeug.security import generate_password_hash
-from pettracker.database import User, session, Base
+from pettracker.database import Base, session, User, Pet, Vet, Appointment, Vaccine, Medication, Food, Record 
 
 from pettracker import app 
 

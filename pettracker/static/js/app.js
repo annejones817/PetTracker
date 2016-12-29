@@ -29,6 +29,6 @@ $(document).ready(function(){
 	});	
 	//Submit Sign In Form 
 	$(".js-sign-in-form").submit(function(event){
-		
+
 	});
 });

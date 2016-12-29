@@ -8,10 +8,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<!--css reset for browser normalization -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" >
-		<link rel="stylesheet" type="text/css" href="../css/grid.css" />
-		<link rel="stylesheet" type="text/css" href="../css/main.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/grid.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/main.css" />
 		
-		<script src="https://use.fontawesome.com/7026219ebd.js"></script>
+		
 	</head>
 	<body>
 		<header>
@@ -19,15 +19,18 @@
 				<div class="col-12">
 					<nav>
 						<div>
-							<a class="logo" href="../index.html">PetTracker</a>
+							<a class="logo" href="/">PetTracker</a>
 						</div>
 						<div class="nav-links">
 							<ul>
 								<li class="nav-link">
-									<a href="#" class="nav-details">Join Now |</a>
+									<a href="/login" class="nav-details">Join Now |</a>
 								</li>
 								<li class="nav-link">
-									<a href="#" class="nav-details"> Sign In</a>
+									<a href="/login" class="nav-details"> Sign In |</a>
+								 </li>
+								 <li class="nav-link">
+									<a href="/logout" class="nav-details"> Sign Out</a>
 								 </li>
 							</ul>
 						</div>
@@ -63,9 +66,9 @@
 						<label for="password">Password  </label>
 						<input type="password" class="form-entry" id="password" name="password" required>
 					</div>
-					<button type="submit" class="join-sign-in-button">
-						Join PetTracker
-					</button>	
+						<button type="submit" class="join-sign-in-button">
+							Join PetTracker
+						</button>	
 				</form>
 			</div>
 		</div>
@@ -78,9 +81,17 @@
 			</div>
 		</footer>
 
+		<!--link to local jquery 
+		<script src="../static/js/jquery/dist/jquery.js"></script>
+		-->
+
+		<!--jquery cdn -->
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
 		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-		  crossorigin="anonymous"></script>
-		<script src="../js/app.js"></script> 
+		  crossorigin="anonymous"></script> 
+
+		
+		  
+		<script src="../static/js/app.js"></script> 
 	</body>
 </html>

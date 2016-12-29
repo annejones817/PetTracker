@@ -39,12 +39,13 @@ class Pet(Base):
     medications = relationship("Medication", backref="pet")
     food = relationship("Food", uselist=False, backref="pet")
     records = relationship("Record", backref="pet")
+    #photos = relationship("Photo", uselist=False, backref="pet")
 
     def as_dictionary(self): 
         pet = {
             "id": self.id, 
             "name": self.name, 
-            # Not json serializable "birthdate": self.birthdate, 
+            "birthdate": str(self.birthdate), 
             "owner_id": self.owner_id, 
             "vet_id": self.vet_id
         }
@@ -59,6 +60,15 @@ class Vet(Base):
     vet_email = Column(String(128))
     
     pets = relationship("Pet", backref="vet")
+
+    def as_dictionary(self):
+        vet = {
+            "vet_id": self.id,        
+            "vet_name": self.vet_name, 
+            "vet_phone": self.vet_phone,
+            "vet_email": self.vet_email
+        }
+        return vet
     
 class Appointment(Base): 
     __tablename__ = "appointments"
@@ -109,10 +119,37 @@ class Record(Base):
     id = Column(Integer, primary_key=True)
     record_type = Column(String(128))
     record_details = Column(String(1024))
-    record_name = Column(String(128), nullable=False)
+    file_name = Column(String(128), nullable=False)
+    file_path = Column(String(128), nullable=False)
     
     pet_id = Column(Integer, ForeignKey("pets.id"), nullable = False)    
     
+    def as_dictionary(self): 
+        return {
+            "id": self.id, 
+            "record_type": self.record_type, 
+            "record_details": self.record_details, 
+            "record_name": self.file_name,
+            "path": self.file_path
+        }
+
+
+class Photo(Base): 
+    __tablename__ = "photos"
+
+    id = Column(Integer, primary_key=True) 
+    file_name = Column(String(128), nullable=False)
+    file_path = Column(String(128), nullable=False)
+
+    pet_id = Column(Integer, ForeignKey("pets.id"), nullable=False)
+
+    def as_dictionary(self):
+        return {
+            "id": self.id,
+            "file_name": self.file_name, 
+            "path": self.file_path
+        }        
+
 Base.metadata.create_all(engine)    
     
 

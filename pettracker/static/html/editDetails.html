@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<!--Resetting -->
+	    <meta charset="UTF-8">
+		<title>PetTracker</title>
+		<!-- Responsive viewport tag, tells small screens that it's responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--css reset for browser normalization -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" >
+		<link rel="stylesheet" type="text/css" href="../css/grid.css" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css" />
+		
+		
+	</head>
+	<body>
+		<header>
+			<div class="row header">
+				<div class="col-12">
+					<nav>
+						<div>
+							<a class="logo" href="/">PetTracker</a>
+						</div>
+						<div class="nav-links">
+							<ul>
+								<li class="nav-link hidden">
+									<a href="/login" class="nav-details">Join Now |</a>
+								</li>
+								<li class="nav-link hidden">
+									<a href="/login" class="nav-details"> Sign In |</a>
+								 </li>
+								 <li class="nav-link">
+									<a href="/logout" class="nav-details"> Sign Out</a>
+								 </li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</header>	
+		<div class="row edit-pet-main js-edit-pet">
+			<div class="col-12">
+				<h1 class="edit-pet-headline">
+					Nala's Information
+				</h1>
+				<form class="js-edit-pet-form vet-form">
+				<h2 class="vet-headline">Vet Info</h2>
+					<div class="form-section">
+						<label for="pet-name">Pet's Name</label>
+						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
+					</div>
+					<div class="form-section">
+						<label for="pet-birthdate">Birthdate</label>
+						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+					</div>
+					<button type="submit" class="edit-pet-button">
+						Submit
+					</button>	
+				</form>
+				<form class="js-edit-pet-form meds-form">
+				<h2 class="meds-headline">Medication</h2>
+					<div class="form-section">
+						<label for="pet-name">Pet's Name</label>
+						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
+					</div>
+					<div class="form-section">
+						<label for="pet-birthdate">Birthdate</label>
+						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+					</div>
+					<button type="submit" class="edit-pet-button">
+						Submit
+					</button>	
+				</form>
+				<form class="js-edit-pet-form appointments-form">
+				<h2 class="meds-headline">Appointments</h2>
+					<div class="form-section">
+						<label for="pet-name">Pet's Name</label>
+						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
+					</div>
+					<div class="form-section">
+						<label for="pet-birthdate">Birthdate</label>
+						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+					</div>
+					<button type="submit" class="edit-pet-button">
+						Submit
+					</button>	
+				</form>
+				<form class="js-edit-pet-form appointments-form">
+				<h2 class="meds-headline">Vaccines</h2>
+					<div class="form-section">
+						<label for="pet-name">Pet's Name</label>
+						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
+					</div>
+					<div class="form-section">
+						<label for="pet-birthdate">Birthdate</label>
+						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+					</div>
+					<button type="submit" class="edit-pet-button">
+						Submit
+					</button>	
+				</form>
+				<form class="js-upload-pet-photo-form">
+					<div class="form-section">
+						<label for="photo-file">Upload Photo</label>
+						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+					</div>
+					<button type="submit" class="upload-pet-photo-button">
+						Upload
+					</button>	
+				</form>
+			</div>
+		</div>
+		
+		<footer>
+			<div class="row footer">
+				<div class="col-12">
+						Connect with us on Facebook, Twitter and Instagram
+				</div>
+			</div>
+		</footer>
+
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		  crossorigin="anonymous"></script>
+		
+		<script src="static/js/addpet.js"></script>
+	</body>
+</html>

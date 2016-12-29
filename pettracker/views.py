@@ -9,11 +9,11 @@ from . import app
 def index():
     return app.send_static_file("html/index.html")
 
-@app.route("/static/html/signIn.html", methods = ["GET"])
+@app.route("/login", methods = ["GET"])
 def login_get():
 	return app.send_static_file("html/signIn.html")
 
-@app.route("/static/html/signIn.html", methods=["POST"]) 
+@app.route("/login", methods=["POST"]) 
 def login_post(): 
 	first_name = request.form["first-name"]
 	last_name = request.form["last-name"]
@@ -26,7 +26,7 @@ def login_post():
 		user = User(first_name=first_name, last_name=last_name, email=email, password=generate_password_hash(password))
 		session.add(user)
 		session.commit()
-		return redirect("http://0.0.0.0:8080/static/html/dashboard.html")
+		return redirect(url_for("dashboard_get"))
 
 	if not check_password_hash(user.password, password):
 		print("wrong password")
@@ -35,10 +35,25 @@ def login_post():
 
 	login_user(user)
 	print("user logged in")
-	return redirect("http://0.0.0.0:8080/static/html/dashboard.html")	
+	return redirect(url_for("dashboard_get"))	
+
+@app.route("/dashboard")
+def dashboard_get(): 
+	return app.send_static_file("html/dashboard.html")	
 
 @app.route("/logout")
 def logout(): 
 	logout_user();
 	flash("Successfully logged out.")
-	return redirect("http://0.0.0.0:8080/")	
+	print("Successfully logged out.")
+	return redirect(url_for("index"))	
+
+@app.route("/add-pet", methods = ["GET"])
+def add_pet_get(): 
+	return app.send_static_file("html/addPet.html")
+
+@app.route("/more-details/<int:id>")
+def more_details_get(id): 
+	return app.send_static_file("html/petDetailsPage.html")	
+
+

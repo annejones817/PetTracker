@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<!--Resetting -->
+	    <meta charset="UTF-8">
+		<title>PetTracker</title>
+		<!-- Responsive viewport tag, tells small screens that it's responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--css reset for browser normalization -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" >
+		<link rel="stylesheet" type="text/css" href="/static/css/grid.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+		
+		
+	</head>
+	<body>
+		<header>
+			<div class="row header">
+				<div class="col-12">
+					<nav>
+						<div>
+							<a class="logo" href="/">PetTracker</a>
+						</div>
+						<div class="nav-links">
+							<ul>
+								<li class="nav-link hidden">
+									<a href="/login" class="nav-details">Join Now |</a>
+								</li>
+								<li class="nav-link hidden">
+									<a href="/login" class="nav-details"> Sign In |</a>
+								 </li>
+								 <li class="nav-link">
+									<a href="/logout" class="nav-details"> Sign Out</a>
+								 </li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</header>	
+		<div class="row add-pet-main js-add-pet">
+			<div class="col-12">
+				<h1 class="sign-in-headline">
+					Add New Pet
+				</h1>
+				<form class="js-add-pet-form">
+					<div class="form-section">
+						<label for="pet-name">Pet's Name</label>
+						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
+					</div>
+					<div class="form-section">
+						<label for="pet-birthdate">Birthdate</label>
+						<input class="form-entry" id="datepicker" name="birthdate">
+					</div>
+					<button type="submit" class="add-pet-button">
+						Add Pet
+					</button>	
+				</form>
+			</div>
+		</div>
+		
+		<footer>
+			<div class="row footer">
+				<div class="col-12">
+						Connect with us on Facebook, Twitter and Instagram
+				</div>
+			</div>
+		</footer>
+
+
+		
+
+		<!--link to local jquery 
+		<script src="../static/js/jquery/dist/jquery.js"></script> -->
+
+		<!--jquery cdn -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		  crossorigin="anonymous"></script> 
+
+		<!-- jquery ui -->  
+		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
+		
+		<script src="static/js/addpet.js"></script>
+	</body>
+</html>
