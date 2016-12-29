@@ -51,6 +51,7 @@
 			<div class="col-6">
 				<div class="edit-pet-details-button-container">
 					<button class="edit-pet-details-button">Edit Details</button>
+					<button class="save-pet-details-button hidden">Save</button>
 				</div>	
 			</div>
 		</div>
@@ -59,9 +60,16 @@
 				<h3 class="pet-details-section-headline">Basic Info</h3>
 				<div class="row basic-pet-details-content-container">
 					<div class="col-12 "> 
-						<ul class="basic-pet-details-content">
-							
-						</ul>
+						<div class="basic-pet-details-content">
+							<div class="pet-details-input-section hidden">
+								<label for="pet-name" class="pet-details-label">Name: </label>
+								<input type="text" class="pet-details-input " id="pet-name">
+							</div>
+							<div class="pet-details-input-section hidden">
+								<label for="datepicker" class="pet-details-label">Birthdate: </label>
+								<input type="text" class="pet-details-input " id="datepicker">
+							</div>	
+						</div>
 					</div>
 				</div>
 			</div>
@@ -71,9 +79,21 @@
 				<h3 class="pet-details-section-headline">Medical Info</h3>
 				<div class="row medical-pet-details-content-container">
 					<div class="col-12 "> 
-						<ul class="medical-pet-details-content">
-							
-						</ul>
+						<div class="medical-pet-details-content">
+							<div class="pet-details-input-section hidden">
+								<label for="vet-name" class="pet-details-label">Vet Name: </label>
+								<input type="text" class="pet-details-input " id="vet-name">
+							</div>
+							<div class="pet-details-input-section hidden">
+								<label for="vet-phone" class="pet-details-label">Vet Phone: </label>
+								<input type="text" class="pet-details-input " id="vet-phone">
+							</div>	
+							<div class="pet-details-input-section hidden">
+								<label for="vet-email" class="pet-details-label">Vet Email: </label>
+								<input type="text" class="pet-details-input " id="vet-email">
+							</div>	
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -83,12 +103,16 @@
 				<h3 class="pet-details-section-headline">Food Info</h3>
 				<div class="row food-pet-details-content-container">
 					<div class="col-12"> 
-						<ul class="pet-details-content">
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-						</ul>
+						<div class="food-details-content">
+							<div class="pet-details-input-section hidden">
+								<label for="food-name" class="pet-details-label">Food Name: </label>
+								<input type="text" class="pet-details-input " id="vet-phone">
+							</div>	
+							<div class="pet-details-input-section hidden">
+								<label for="cups-per-day" class="pet-details-label">Cups Per Day: </label>
+								<input type="text" class="pet-details-input " id="cups-per-day">
+							</div>	
+						</div>
 					</div>
 				</div>
 			</div>
@@ -98,17 +122,15 @@
 				<h3 class="pet-details-section-headline">Records</h3>
 				<div class="row">
 					<div class="col-12 record-details-container"> 
-						<ul class="pet-details-content">
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-						</ul>
+						<div class="pet-details-content">
+
+						</div>
 						<button class="add-new-record-button">Add New Record</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- Edit Pet Details Form 
 		<div class="row edit-pet-details-row hidden">
 			<div class="col-12 edit-pet-details">
 				<form class="edit-pet-details-form">
@@ -144,6 +166,7 @@
 				</form>
 			</div>
 		</div>
+		-->
 		<div class="row file-upload hidden">
 			<div class="col-12 edit-pet-details">
 				<form id="upload-file" enctype="multipart/form-data" class="record-upload">
@@ -174,9 +197,13 @@
 		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 		  crossorigin="anonymous"></script> -->
 
+		<script src="/static/js/moment.min.js"></script>  
+
+
 		<!-- jquery ui -->  
 		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 
 		<script src="/static/js/petDetails.js"></script> 
+
 	</body>
 </html>

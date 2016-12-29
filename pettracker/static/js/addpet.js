@@ -6,6 +6,7 @@ $(document).ready(function(){
 				"pet-name": petName, 
 				"pet-birthdate": petBirthDate
 			};
+			console.log(obj);
 			$.ajax({
 				url: baseURL, 
 				data: JSON.stringify(obj), 
@@ -25,9 +26,12 @@ $(document).ready(function(){
 		}	
 
 	//Initialize datepicker for birthdate	
-	$('#datepicker').datepicker({
-		dateFormat: "yy-mm-dd"
-	});	
+	$('#datepicker').datepicker(
+		{
+		   dateFormat: "yy-mm-dd",
+		   timeFormat:  "hh:mm:ss"
+		}
+	);	
 
 	//Listen for add pet submit
 	$('.js-add-pet-form').submit(function(event){
@@ -36,7 +40,7 @@ $(document).ready(function(){
 		//Check form 
 		var petName = $('#pet-name').val();
 		//Handle undefined
-		var petBirthDate = $('#birthdate').val();
+		var petBirthDate = $('#datepicker').val();
 		addPetPost(petName, petBirthDate);
 	})
 	console.log("test");

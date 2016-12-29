@@ -111,7 +111,14 @@ class Food(Base):
     last_purchase_date = Column(DateTime)
     next_purchase_date = Column(DateTime)
     
-    pet_id = Column(Integer, ForeignKey("pets.id"), nullable = False)    
+    pet_id = Column(Integer, ForeignKey("pets.id"), nullable = False)   
+
+    def as_dictionary(self):
+        food = {
+            "food_name": self.food_name, 
+            "cups_per_day": self.cups_per_day
+        }
+        return food 
     
 class Record(Base):
     __tablename__ = "records"

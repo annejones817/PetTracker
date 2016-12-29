@@ -31,34 +31,51 @@ $(document).ready(function(){
 	function generateResultsHTML(data){
 		var basicHTML = '';
 		var medicalHTML = '';
+		var foodHTML = '';
 		if (data[0].name) {
-			basicHTML += '<li class="pet-detail">Name: ' + data[0].name + '</li>';
+			basicHTML += '<div class="pet-detail">Name: ' + data[0].name + '</div>';
 			name = data[0].name;
+			$('#pet-name').attr('placeholder', name);
 		}
 		if (data[0].birthdate) {
-			birthdate = data[0].birthdate;
-			birthdate = new Date(birthdate);
-			$('#datepicker').val(birthdate.getFromFormat("yyyy-mm-dd"));
-			basicHTML += '<li class="pet-detail">Birthdate: ' + birthdate + '</li>';
+			birthdate = moment(data[0].birthdate).format("MMM Do YYYY");
+			//birthdate = new Date(birthdate);
+			//$('#datepicker').val(birthdate.getFromFormat("yyyy-mm-dd"));
+			basicHTML += '<div class="pet-detail">Birthdate: ' + birthdate + '</div>';
 		}
 		$('.basic-pet-details-content').append(basicHTML);
 		
-		
-		if (data[1].vet_name) {
-			medicalHTML += '<li class="pet-detail">Vet Name: ' + data[1].vet_name + '</li>';
-			vetName = data[1].vet_name;
-		}
+		if (data[1]) {
+			if (data[1].vet_name) {
+				medicalHTML += '<div class="pet-detail">Vet Name: ' + data[1].vet_name + '</div>';
+				vetName = data[1].vet_name;
+			}
 
-		if (data[1].vet_phone) {
-			medicalHTML += '<li class="pet-detail">Vet Phone: ' + data[1].vet_phone + '</li>';
-			vetPhone = data[1].vet_phone;
-		}
+			if (data[1].vet_phone) {
+				medicalHTML += '<div class="pet-detail">Vet Phone: ' + data[1].vet_phone + '</div>';
+				vetPhone = data[1].vet_phone;
+			}
 
-		if (data[1].vet_email) {
-			medicalHTML += '<li class="pet-detail">Vet Email: ' + data[1].vet_email + '</li>';
-			vetEmail = data[1].vet_email;
-		}
-		$('.medical-pet-details-content').append(medicalHTML);
+			if (data[1].vet_email) {
+				medicalHTML += '<div class="pet-detail">Vet Email: ' + data[1].vet_email + '</div>';
+				vetEmail = data[1].vet_email;
+			}
+			$('.medical-pet-details-content').append(medicalHTML);
+		}	
+
+		if (data[2]) {
+			if (data[2].food_name) {
+				foodHTML += '<div class="pet-detail">Food Name: ' + data[2].food_name + '</div>';
+				foodName = data[2].food_name;
+			}
+
+			if (data[2].cups_per_day) {
+				foodHTML += '<div class="pet-detail">Cups Per Day: ' + data[2].cups_per_day + '</div>';
+				cupsPerDay = data[2].cups_per_day;
+			}
+			$('.food-details-content').append(foodHTML);
+		}	
+
 	}
 
 	function displayDetails(data) {
@@ -77,12 +94,16 @@ $(document).ready(function(){
 	}
 
 	function editDetails(){
-		$('.pet-details').addClass('hidden');
-		$('.edit-pet-details-row').removeClass('hidden');
+		$('.pet-detail').remove();
+		$('.save-pet-details-button').removeClass('hidden');
+		$('.pet-details-input-section').removeClass('hidden');
+
+		//$('.edit-pet-details-row').removeClass('hidden');
 	}
 
 	function saveDetails(){
 		//initialize variables
+		var splitURL = window.location.href.split('/');
 		var petName;
 		var petBirthdate;
 		var vetName;
@@ -90,43 +111,30 @@ $(document).ready(function(){
 		var vetEmail;
 		var foodName; 
 		var cupsPerDay;
-		var obj = {};
+		var obj = {"pet-id": splitURL[4] };
 
-		//Check whether each field is completed and set variables accordingly
-		if ($('#pet-name').val() != '') {
-			petName = $('#pet-name').val();
-			obj["pet-name"] = petName; 
-		}
+		//Set variables
+		
+		petName = $('#pet-name').val();
+		obj["pet-name"] = petName; 
+		
+		petBirthdate = $('#datepicker').val();
+		obj["pet-birthdate"] = petBirthdate; 
 
-		if ($('#datepicker').val() != '') {
-			petBirthdate = $('#datepicker').val();
-			obj["pet-birthdate"] = petBirthdate; 
-		}
+		vetName = $('#vet-name').val();
+		obj["vet-name"] = vetName; 
 
-		if ($('#vet-name').val() != '') {
-			vetName = $('#vet-name').val();
-			obj["vet-name"] = vetName; 
-		}
+		vetPhone = $('#vet-phone').val();
+		obj["vet-phone"] = vetPhone; 
+		
+		vetEmail = $('#vet-email').val();
+		obj["vet-email"] = vetEmail; 
+	
+		foodName = $('#food-name').val();
+		obj["food-name"] = foodName; 
 
-		if ($('#vet-phone').val() != '') {
-			vetPhone = $('#vet-phone').val();
-			obj["vet-phone"] = vetPhone; 
-		}
-
-		if ($('#vet-email').val() != '') {
-			vetEmail = $('#vet-email').val();
-			obj["vet-email"] = vetEmail; 
-		}
-
-		if ($('#food-name').val() != '') {
-			foodName = $('#food-name').val();
-			obj["food-name"] = foodName; 
-		}
-
-		if ($('#cups-per-day').val() != '') {
-			cupsPerDay = $('#cups-per-day').val();
-			obj["cups-per-day"] = cupsPerDay; 
-		}
+		cupsPerDay = $('#cups-per-day').val();
+		obj["cups-per-day"] = cupsPerDay; 
 
 		var baseURL = '/api/update-pet';
 		
@@ -141,7 +149,7 @@ $(document).ready(function(){
 				if (data) {
 					console.log("success");
 					$('.edit-pet-details-row').addClass('hidden');
-					getDetails();
+					getDetails(petDetailsPath);
 					$('.pet-details').removeClass('hidden');
 					$('.edit-pet-details-button').removeClass('hidden');
 				} else {
@@ -226,7 +234,8 @@ $(document).ready(function(){
 	});
 
 	//Listen for submit save details form
-	$('.edit-pet-details-button-container').on('submit', '.edit-pet-details-form', (function(event){
+	$('body').on('submit', '.edit-pet-details-form', (function(event){
+		console.log("save clicked");
 		event.preventDefault(); 
 		saveDetails();
 	}));
