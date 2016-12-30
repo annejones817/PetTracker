@@ -45,8 +45,13 @@
 			<div class="col-6">
 				<h1 class="pet-details-headline">
 				</h1>
-				<img src="http://placehold.it/150x150" />
-				<div class="change-photo">Change Photo</div>
+				<img class="pet-photo" src="" />
+				<button class="change-photo">Change Photo</button>
+				<form id="upload-photo" enctype="multipart/form-data" class="photo-upload hidden">
+					<input type="file" name="photo" id="photo-file" />
+					<input type="text" name="photo-pet-id" id="photo-pet-id" class="hidden"/>
+					<button type="submit">Upload Now</button>
+				</form>
 			</div>
 			<div class="col-6">
 				<div class="edit-pet-details-button-container">
@@ -122,8 +127,8 @@
 			<div class="col-12 pet-details-section records">
 				<h3 class="pet-details-section-headline">Records</h3>
 				<div class="row">
-					<div class="col-12 record-details-container"> 
-						<div class="pet-details-content">
+					<div class="col-12 "> 
+						<div class="pet-details-content record-details-container">
 
 						</div>
 						<button class="add-new-record-button">Add New Record</button>

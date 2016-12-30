@@ -5,3 +5,4 @@ class DevelopmentConfig(object):
     DEBUG = True
     SECRET_KEY = os.environ.get("PETTRACKER_SECRET_KEY", os.urandom(12))
     UPLOAD_FOLDER = "uploads"
+    PHOTO_FOLDER = "photos"

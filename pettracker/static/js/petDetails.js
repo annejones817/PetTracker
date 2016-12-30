@@ -62,6 +62,7 @@ $(document).ready(function(){
 		var basicHTML = '';
 		var medicalHTML = '';
 		var foodHTML = '';
+		var recordsHTML = '';
 		if (data[0].name) {
 			basicHTML += '<div class="pet-detail">Name: ' + data[0].name + '</div>';
 			name = data[0].name;
@@ -108,6 +109,13 @@ $(document).ready(function(){
 				$('#cups-per-day').attr('value', cupsPerDay);
 			}
 			$('.food-details-content').append(foodHTML);
+		}
+
+		if (data[3]) {
+			for (var i=0; i<data[3].length; i++) {
+				recordsHTML += '<div class="pet-detail">' + data[3][i] + '</div>';
+			}
+			$('.record-details-container').append(recordsHTML);
 		}	
 
 	}
@@ -119,6 +127,7 @@ $(document).ready(function(){
 			$('.pet-details-headline').text('Name error');
 		}
 		$('#file-pet-id').val(petID);
+		$('#photo-pet-id').val(petID);
 		generateResultsHTML(data);
 	}
 
@@ -198,7 +207,6 @@ $(document).ready(function(){
 	//Upload file
 	function uploadFile() {
 		event.preventDefault();
-		console.log(petID);
 
 	    // Create a FormData object from the upload form
 	    var formElement = $('#upload-file');
@@ -230,6 +238,39 @@ $(document).ready(function(){
 	    $('.file-upload').addClass('hidden');
 	    $('.pet-details-section-records').removeClass('hidden');
 	}	
+
+	//Upload Photo
+	function uploadPhoto() {
+		event.preventDefault();
+
+		//Create a FormData object from the upload form
+		var formElement = $('#upload-photo');
+		var request = new XMLHttpRequest();
+		var data = new FormData(formElement[0]);
+
+		//Make a POST request to the photo upload endpoint
+		var ajax = $.ajax('/api/photos', {
+			type: 'POST', 
+			xhr: function createUploadXhr() {
+			    // XHR file upload magic
+			    var xhr = new XMLHttpRequest();
+			    if(xhr.upload) { // if upload property exists
+			      xhr.upload.addEventListener('progress',progressHandlingFunction, false);
+			    }
+			    return xhr;
+				},
+			data: data, 
+			cache: false, 
+			contentType: false, 
+			processData: false, 
+			dataType: 'json', 
+			success: function(data) {
+				console.log(data); 
+			}	
+		});
+		$('#upload-photo').addClass('hidden');
+
+	}
 
 	
 /////////Event Listeners//////////////////
@@ -267,4 +308,15 @@ $(document).ready(function(){
 			getDetails(petDetailsPath);
 			$('.edit-pet-details-button').removeClass('hidden');
 	}));
+
+	//Listen for click on change photo
+	$('.change-photo').click(function(event){
+		$('#upload-photo').removeClass('hidden');
+	});
+
+	//Listen for upload photo click 
+	$('.pet-details-head').on('submit', '#upload-photo', function(event){
+		uploadPhoto();
+	})
+	
 });

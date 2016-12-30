@@ -5,9 +5,9 @@ from flask import Response, jsonify, render_template, request, redirect, url_for
 from flask_login import login_user, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from .database import session, User, Pet, Vet, Appointment, Vaccine, Medication, Food, Record 
+from .database import session, User, Pet, Vet, Appointment, Vaccine, Medication, Food, Record, Photo 
 from . import decorators
-from .utils import upload_path
+from .utils import upload_path, upload_photo_path
 from .nocache import nocache
 from .config import DevelopmentConfig
 
@@ -175,21 +175,43 @@ def uploaded_file(filename):
 def file_post():
 	file = request.files.get("file")
 	pet_id = request.form.get("file-pet-id")
+	record_type = request.form.get("record-type")
+	record_details = request.form.get("record-details")
 
 	if not file: 
 		data = {"message": "Could not find file data."}
 		return Response(json.dumps(data), 422, mimetype="application/json")	
 
-	file_name = secure_filename(file.filename)
+	filename = secure_filename(file.filename)
 	
-	record = Record(file_name=file_name, file_path="", pet_id = pet_id)
+	record = Record(record_type = record_type, record_details = record_details, file_name=filename, file_path="/uploads/" + filename, pet_id = pet_id)
 	session.add(record)
 	session.commit()
 	
-	file.save(upload_path(file_name))
+	file.save(upload_path(filename))
 
 	data = record.as_dictionary()
 	return Response(json.dumps(data), 201, mimetype="application/json")
+
+@app.route("/api/photos", methods = ["POST"])
+def photo_post(): 
+	file = request.files.get("photo")
+	pet_id = request.form.get("photo-pet-id")
+
+	if not file: 
+		data = {"message": "Could not find photo data."}
+		return Response(json.dumps(data), 422, mimetype="application/json")
+
+	filename = secure_filename(file.filename)
+
+	photo = Photo(file_name=filename, file_path="/photos/" + filename, pet_id = pet_id)
+	session.add(photo)
+	session.commit()
+
+	file.save(upload_photo_path(filename))
+
+	data = photo.as_dictionary()
+	return Response(json.dumps(data), 201, mimetype="application/json")		
 
 @app.route("/api/delete-pet/<int:id>", methods = ["POST"])
 def delete_pet(id): 
@@ -210,27 +232,40 @@ def delete_pet(id):
 @app.route("/more-details/api/more-details/<int:id>", methods = ["GET"])
 def get_details(id): 
 	pet = session.query(Pet).filter(Pet.id==id).first()
-	#basicDetails = json.dumps(pet.as_dictionary())
 
 	vet_id = pet.vet_id
 	vet = session.query(Vet).filter(Vet.id==vet_id).first()
-	#vetDetails = json.dumps(vet.as_dictionary())
 
 	food = session.query(Food).filter(Food.pet_id==pet.id).first()
+
+	records = session.query(Record.file_name).filter(Record.pet_id == pet.id).all()
 
 	if not pet: 
 		message = "Could not find pet with id {}".format(id)
 		data = json.dumps({"message": message})
 		return Response(data, 404, mimetype="application/json")
-	if (vet and food): 
-		data = json.dumps([pet.as_dictionary(), vet.as_dictionary(), food.as_dictionary()])
-		
+	
+	if (vet and food and records): 
+		data = json.dumps([pet.as_dictionary(), vet.as_dictionary(), food.as_dictionary(), records])
+	elif (vet and food):
+		data = json.dumps([pet.as_dictionary(), vet.as_dictionary(), food.as_dictionary(), []])
+	elif (vet and records): 
+		data = json.dumps([pet.as_dictionary(), vet.as_dictionary(), {}, records])
 	elif (vet):
-		data = json.dumps([pet.as_dictionary(), vet.as_dictionary()])
+		data = json.dumps([pet.as_dictionary(), vet.as_dictionary(), {}, []])
+
+	elif (food and records): 
+		data = json.dumps([pet.as_dictionary(), {}, food.as_dictionary(), records])
+		
 	elif (food): 
-		data = json.dumps([pet.as_dictionary(), {}, food.as_dictionary()])
+		data = json.dumps([pet.as_dictionary(), {}, food.as_dictionary(), []])
+	
+	
+	elif (records):
+		data = json.dumps([pet.as_dictionary(), {}, {}, records])
+
 	else: 	
-		data = json.dumps([pet.as_dictionary()])
+		data = json.dumps([pet.as_dictionary(), {}, {}, []])
 
 	return Response(data, 200, mimetype="application/json")
 
