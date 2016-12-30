@@ -1,6 +1,34 @@
 $(document).ready(function(){
+////////////Page Initialization/////////////////////	
+	//Get pet details on page load
+	var petDetailsPath = window.location.pathname;
+	getDetails(petDetailsPath);
+
+	//Initialize datepicker for birthdate
+	$('#datepicker').datepicker({
+		dateFormat: "yy-mm-dd", 
+		defaultDate: birthdate
+	});	
+
+	Date.prototype.getFromFormat = function(format) {
+	   var yyyy = this.getFullYear().toString();
+	   format = format.replace(/yyyy/g, yyyy)
+	   var mm = (this.getMonth()+1).toString();
+	   format = format.replace(/mm/g, (mm[1]?mm:"0"+mm[0]));
+	   var dd  = this.getDate().toString();
+	   format = format.replace(/dd/g, (dd[1]?dd:"0"+dd[0]));
+	   var hh = this.getHours().toString();
+	   format = format.replace(/hh/g, (hh[1]?hh:"0"+hh[0]));
+	   var ii = this.getMinutes().toString();
+	   format = format.replace(/ii/g, (ii[1]?ii:"0"+ii[0]));
+	   var ss  = this.getSeconds().toString();
+	   format = format.replace(/ss/g, (ss[1]?ss:"0"+ss[0]));
+	   return format;
+	 };
 
 	//variables to store pet details
+	var splitURL = window.location.href.split('/');
+	var petID = splitURL[4];
 	var name; 
 	var birthdate; 
 	var vetName; 
@@ -8,6 +36,8 @@ $(document).ready(function(){
 	var vetEmail;
 	var foodName; 
 	var cupsPerDay;
+
+////////Functions///////////////////////	
 
 	//Get pet details
 	function getDetails(petDetailsPath) {
@@ -35,13 +65,12 @@ $(document).ready(function(){
 		if (data[0].name) {
 			basicHTML += '<div class="pet-detail">Name: ' + data[0].name + '</div>';
 			name = data[0].name;
-			$('#pet-name').attr('placeholder', name);
+			$('#pet-name').attr('value', name);
 		}
 		if (data[0].birthdate) {
-			birthdate = moment(data[0].birthdate).format("MMM Do YYYY");
-			//birthdate = new Date(birthdate);
-			//$('#datepicker').val(birthdate.getFromFormat("yyyy-mm-dd"));
+			birthdate = moment(data[0].birthdate).format("YYYY-MM-DD");
 			basicHTML += '<div class="pet-detail">Birthdate: ' + birthdate + '</div>';
+			$('#datepicker').attr('value', birthdate);
 		}
 		$('.basic-pet-details-content').append(basicHTML);
 		
@@ -49,16 +78,19 @@ $(document).ready(function(){
 			if (data[1].vet_name) {
 				medicalHTML += '<div class="pet-detail">Vet Name: ' + data[1].vet_name + '</div>';
 				vetName = data[1].vet_name;
+				$('#vet-name').attr('value', vetName);
 			}
 
 			if (data[1].vet_phone) {
 				medicalHTML += '<div class="pet-detail">Vet Phone: ' + data[1].vet_phone + '</div>';
 				vetPhone = data[1].vet_phone;
+				$('#vet-phone').attr('value', vetPhone);
 			}
 
 			if (data[1].vet_email) {
 				medicalHTML += '<div class="pet-detail">Vet Email: ' + data[1].vet_email + '</div>';
 				vetEmail = data[1].vet_email;
+				$('#vet-email').attr('value', vetEmail);
 			}
 			$('.medical-pet-details-content').append(medicalHTML);
 		}	
@@ -67,11 +99,13 @@ $(document).ready(function(){
 			if (data[2].food_name) {
 				foodHTML += '<div class="pet-detail">Food Name: ' + data[2].food_name + '</div>';
 				foodName = data[2].food_name;
+				$('#food-name').attr('value', foodName);
 			}
 
 			if (data[2].cups_per_day) {
 				foodHTML += '<div class="pet-detail">Cups Per Day: ' + data[2].cups_per_day + '</div>';
 				cupsPerDay = data[2].cups_per_day;
+				$('#cups-per-day').attr('value', cupsPerDay);
 			}
 			$('.food-details-content').append(foodHTML);
 		}	
@@ -84,6 +118,7 @@ $(document).ready(function(){
 			} else {
 			$('.pet-details-headline').text('Name error');
 		}
+		$('#file-pet-id').val(petID);
 		generateResultsHTML(data);
 	}
 
@@ -96,14 +131,12 @@ $(document).ready(function(){
 	function editDetails(){
 		$('.pet-detail').remove();
 		$('.save-pet-details-button').removeClass('hidden');
+		$('.cancel-edit-button').removeClass('hidden');
 		$('.pet-details-input-section').removeClass('hidden');
-
-		//$('.edit-pet-details-row').removeClass('hidden');
 	}
 
 	function saveDetails(){
 		//initialize variables
-		var splitURL = window.location.href.split('/');
 		var petName;
 		var petBirthdate;
 		var vetName;
@@ -111,7 +144,7 @@ $(document).ready(function(){
 		var vetEmail;
 		var foodName; 
 		var cupsPerDay;
-		var obj = {"pet-id": splitURL[4] };
+		var obj = {"pet-id": petID };
 
 		//Set variables
 		
@@ -119,6 +152,7 @@ $(document).ready(function(){
 		obj["pet-name"] = petName; 
 		
 		petBirthdate = $('#datepicker').val();
+		petBirthdate = moment(petBirthdate).format("YYYY-MM-DD HH:MM:SS");
 		obj["pet-birthdate"] = petBirthdate; 
 
 		vetName = $('#vet-name').val();
@@ -149,52 +183,29 @@ $(document).ready(function(){
 				if (data) {
 					console.log("success");
 					$('.edit-pet-details-row').addClass('hidden');
+					$('.pet-details-input-section').addClass('hidden');
+					$('.save-pet-details-button').addClass('hidden');
+					$('.cancel-edit-button').addClass('hidden');
 					getDetails(petDetailsPath);
-					$('.pet-details').removeClass('hidden');
 					$('.edit-pet-details-button').removeClass('hidden');
 				} else {
 					console.log("fail");
 				}
 			}
 		});
-	}	
+	}
 
-	Date.prototype.getFromFormat = function(format) {
-	   var yyyy = this.getFullYear().toString();
-	   format = format.replace(/yyyy/g, yyyy)
-	   var mm = (this.getMonth()+1).toString();
-	   format = format.replace(/mm/g, (mm[1]?mm:"0"+mm[0]));
-	   var dd  = this.getDate().toString();
-	   format = format.replace(/dd/g, (dd[1]?dd:"0"+dd[0]));
-	   var hh = this.getHours().toString();
-	   format = format.replace(/hh/g, (hh[1]?hh:"0"+hh[0]));
-	   var ii = this.getMinutes().toString();
-	   format = format.replace(/ii/g, (ii[1]?ii:"0"+ii[0]));
-	   var ss  = this.getSeconds().toString();
-	   format = format.replace(/ss/g, (ss[1]?ss:"0"+ss[0]));
-	   return format;
-	 };
-	
-	//Get pet details on page load
-	var petDetailsPath = window.location.pathname;
-	getDetails(petDetailsPath);
-
-	//Initialize datepicker for birthdate
-	$('#datepicker').datepicker({
-		dateFormat: "yy-mm-dd", 
-		defaultDate: birthdate
-	});	
-
-	//Listen for Upload File
-	$('#upload-file').submit(function(event){
+	//Upload file
+	function uploadFile() {
 		event.preventDefault();
+		console.log(petID);
 
 	    // Create a FormData object from the upload form
-	    //var data = new FormData($('form')[0]);
-	    var data = new FormData();
-	    var name = 'Testing';
-	    data.append(name, $('form')[0], 'string');
+	    var formElement = $('#upload-file');
+	    var request = new XMLHttpRequest();
+	    var data = new FormData(formElement[0]);
 	    console.log(data);
+	    
 	    // Make a POST request to the file upload endpoint
 	    var ajax = $.ajax('/api/files', {
 	        type: 'POST',
@@ -218,13 +229,22 @@ $(document).ready(function(){
 	    });
 	    $('.file-upload').addClass('hidden');
 	    $('.pet-details-section-records').removeClass('hidden');
-	});
+	}	
+
+	
+/////////Event Listeners//////////////////
+	
 
 	//Listen for click on add record button
 	$('.add-new-record-button').click(function(event){
 		$('.pet-details-section-records').addClass('hidden');
 		$('.file-upload').removeClass('hidden');
 	});
+
+	//Listen for upload file
+	$('#upload-file').submit(function(event){
+		uploadFile();
+	});	
 
 	//Listen for click on edit details button
 	$('.edit-pet-details-button').click(function(event){
@@ -233,11 +253,18 @@ $(document).ready(function(){
 		editDetails();
 	});
 
-	//Listen for submit save details form
-	$('body').on('submit', '.edit-pet-details-form', (function(event){
-		console.log("save clicked");
-		event.preventDefault(); 
+	//Listen for click on save
+	$('.edit-pet-details-button-container').on('click', '.save-pet-details-button', (function(event){
 		saveDetails();
 	}));
 
+	//Listen for click on cancel edit 
+	$('.edit-pet-details-button-container').on('click', '.cancel-edit-button', (function(event){
+		$('.edit-pet-details-row').addClass('hidden');
+			$('.pet-details-input-section').addClass('hidden');
+			$('.save-pet-details-button').addClass('hidden');
+			$('.cancel-edit-button').addClass('hidden');
+			getDetails(petDetailsPath);
+			$('.edit-pet-details-button').removeClass('hidden');
+	}));
 });

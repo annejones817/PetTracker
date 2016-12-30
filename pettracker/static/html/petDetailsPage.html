@@ -52,6 +52,7 @@
 				<div class="edit-pet-details-button-container">
 					<button class="edit-pet-details-button">Edit Details</button>
 					<button class="save-pet-details-button hidden">Save</button>
+					<button class="cancel-edit-button hidden">Cancel</button>
 				</div>	
 			</div>
 		</div>
@@ -106,7 +107,7 @@
 						<div class="food-details-content">
 							<div class="pet-details-input-section hidden">
 								<label for="food-name" class="pet-details-label">Food Name: </label>
-								<input type="text" class="pet-details-input " id="vet-phone">
+								<input type="text" class="pet-details-input " id="food-name">
 							</div>	
 							<div class="pet-details-input-section hidden">
 								<label for="cups-per-day" class="pet-details-label">Cups Per Day: </label>
@@ -130,43 +131,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- Edit Pet Details Form 
-		<div class="row edit-pet-details-row hidden">
-			<div class="col-12 edit-pet-details">
-				<form class="edit-pet-details-form">
-					<button type="submit" class="save-pet-details-button">Save</button>
-					<div class="form-section">
-						<label for="pet-name">Name</label>
-						<input type="text" class="form-entry" id="pet-name" name="pet-name">
-					</div>
-					<div class="form-section">
-						<label for="birthdate">Birthdate</label>
-						<input class="form-entry" id="datepicker" name="birthdate">
-					</div>
-					<div class="form-section">
-						<label for="vet-name">Vet Name</label>
-						<input type="text" class="form-entry" id="vet-name" name="vet-name">
-					</div>
-					<div class="form-section">
-						<label for="vet-phone">Vet Phone</label>
-						<input type="text" class="form-entry" id="vet-phone" name="vet-phone">
-					</div>
-					<div class="form-section">
-						<label for="vet-email">Vet Email</label>
-						<input type="email" class="form-entry" id="vet-email" name="vet-email">
-					</div>
-					<div class="form-section">
-						<label for="food-name">Food Name</label>
-						<input type="text" class="form-entry" id="food-name" name="food-name">
-					</div>
-					<div class="form-section">
-						<label for="cups-per-day">Cups Per Day</label>
-						<input type="text" class="form-entry" id="cups-per-day" name="cups-per-day">
-					</div>
-				</form>
-			</div>
-		</div>
-		-->
+		
 		<div class="row file-upload hidden">
 			<div class="col-12 edit-pet-details">
 				<form id="upload-file" enctype="multipart/form-data" class="record-upload">
@@ -176,6 +141,7 @@
 					<label for="record-details">Record Details</label>
 					<input name="record-details" type="text" placeholder="3 Year Rabies Cert" />
 					<input type="file" name="file" id="fileinfo" />
+					<input type="text" name="file-pet-id" id="file-pet-id" class="hidden"/>
 					<button type="submit">Upload Now</button>
 				</form>
 			</div>

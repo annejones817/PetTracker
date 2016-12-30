@@ -221,7 +221,8 @@ input {
 }
 
 .edit-pet-details-button, 
-.save-pet-details-button {
+.save-pet-details-button, 
+.cancel-edit-button {
 	padding: 5px 40px;
 	font-size: .9em;
 }

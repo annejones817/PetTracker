@@ -174,6 +174,7 @@ def uploaded_file(filename):
 @app.route("/api/files", methods = ["POST"])
 def file_post():
 	file = request.files.get("file")
+	pet_id = request.form.get("file-pet-id")
 
 	if not file: 
 		data = {"message": "Could not find file data."}
@@ -181,12 +182,10 @@ def file_post():
 
 	file_name = secure_filename(file.filename)
 	
-	#Do these three lines in a separate call to a new route 
-	record = Record(file_name=file_name, file_path="", pet_id = 2)
+	record = Record(file_name=file_name, file_path="", pet_id = pet_id)
 	session.add(record)
 	session.commit()
 	
-	# Leave this line here
 	file.save(upload_path(file_name))
 
 	data = record.as_dictionary()
