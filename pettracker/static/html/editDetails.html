@@ -14,102 +14,104 @@
 		
 	</head>
 	<body>
-		<header>
-			<div class="row header">
+		<main>
+			<header>
+				<div class="row header">
+					<div class="col-12">
+						<nav>
+							<div>
+								<a class="logo" href="/">PetTracker</a>
+							</div>
+							<div class="nav-links">
+								<ul>
+									<li class="nav-link hidden">
+										<a href="/login" class="nav-details">Join Now |</a>
+									</li>
+									<li class="nav-link hidden">
+										<a href="/login" class="nav-details"> Sign In |</a>
+									 </li>
+									 <li class="nav-link">
+										<a href="/logout" class="nav-details"> Sign Out</a>
+									 </li>
+								</ul>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</header>	
+			<div class="row edit-pet-main js-edit-pet">
 				<div class="col-12">
-					<nav>
-						<div>
-							<a class="logo" href="/">PetTracker</a>
+					<h1 class="edit-pet-headline">
+						Nala's Information
+					</h1>
+					<form class="js-edit-pet-form vet-form">
+					<h2 class="vet-headline">Vet Info</h2>
+						<div class="form-section">
+							<label for="pet-name">Pet's Name</label>
+							<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
 						</div>
-						<div class="nav-links">
-							<ul>
-								<li class="nav-link hidden">
-									<a href="/login" class="nav-details">Join Now |</a>
-								</li>
-								<li class="nav-link hidden">
-									<a href="/login" class="nav-details"> Sign In |</a>
-								 </li>
-								 <li class="nav-link">
-									<a href="/logout" class="nav-details"> Sign Out</a>
-								 </li>
-							</ul>
+						<div class="form-section">
+							<label for="pet-birthdate">Birthdate</label>
+							<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
 						</div>
-					</nav>
+						<button type="submit" class="edit-pet-button">
+							Submit
+						</button>	
+					</form>
+					<form class="js-edit-pet-form meds-form">
+					<h2 class="meds-headline">Medication</h2>
+						<div class="form-section">
+							<label for="pet-name">Pet's Name</label>
+							<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
+						</div>
+						<div class="form-section">
+							<label for="pet-birthdate">Birthdate</label>
+							<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+						</div>
+						<button type="submit" class="edit-pet-button">
+							Submit
+						</button>	
+					</form>
+					<form class="js-edit-pet-form appointments-form">
+					<h2 class="meds-headline">Appointments</h2>
+						<div class="form-section">
+							<label for="pet-name">Pet's Name</label>
+							<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
+						</div>
+						<div class="form-section">
+							<label for="pet-birthdate">Birthdate</label>
+							<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+						</div>
+						<button type="submit" class="edit-pet-button">
+							Submit
+						</button>	
+					</form>
+					<form class="js-edit-pet-form appointments-form">
+					<h2 class="meds-headline">Vaccines</h2>
+						<div class="form-section">
+							<label for="pet-name">Pet's Name</label>
+							<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
+						</div>
+						<div class="form-section">
+							<label for="pet-birthdate">Birthdate</label>
+							<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+						</div>
+						<button type="submit" class="edit-pet-button">
+							Submit
+						</button>	
+					</form>
+					<form class="js-upload-pet-photo-form">
+						<div class="form-section">
+							<label for="photo-file">Upload Photo</label>
+							<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+						</div>
+						<button type="submit" class="upload-pet-photo-button">
+							Upload
+						</button>	
+					</form>
 				</div>
 			</div>
-		</header>	
-		<div class="row edit-pet-main js-edit-pet">
-			<div class="col-12">
-				<h1 class="edit-pet-headline">
-					Nala's Information
-				</h1>
-				<form class="js-edit-pet-form vet-form">
-				<h2 class="vet-headline">Vet Info</h2>
-					<div class="form-section">
-						<label for="pet-name">Pet's Name</label>
-						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
-					</div>
-					<div class="form-section">
-						<label for="pet-birthdate">Birthdate</label>
-						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
-					</div>
-					<button type="submit" class="edit-pet-button">
-						Submit
-					</button>	
-				</form>
-				<form class="js-edit-pet-form meds-form">
-				<h2 class="meds-headline">Medication</h2>
-					<div class="form-section">
-						<label for="pet-name">Pet's Name</label>
-						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
-					</div>
-					<div class="form-section">
-						<label for="pet-birthdate">Birthdate</label>
-						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
-					</div>
-					<button type="submit" class="edit-pet-button">
-						Submit
-					</button>	
-				</form>
-				<form class="js-edit-pet-form appointments-form">
-				<h2 class="meds-headline">Appointments</h2>
-					<div class="form-section">
-						<label for="pet-name">Pet's Name</label>
-						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
-					</div>
-					<div class="form-section">
-						<label for="pet-birthdate">Birthdate</label>
-						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
-					</div>
-					<button type="submit" class="edit-pet-button">
-						Submit
-					</button>	
-				</form>
-				<form class="js-edit-pet-form appointments-form">
-				<h2 class="meds-headline">Vaccines</h2>
-					<div class="form-section">
-						<label for="pet-name">Pet's Name</label>
-						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
-					</div>
-					<div class="form-section">
-						<label for="pet-birthdate">Birthdate</label>
-						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
-					</div>
-					<button type="submit" class="edit-pet-button">
-						Submit
-					</button>	
-				</form>
-				<form class="js-upload-pet-photo-form">
-					<div class="form-section">
-						<label for="photo-file">Upload Photo</label>
-						<input type="text" class="form-entry" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
-					</div>
-					<button type="submit" class="upload-pet-photo-button">
-						Upload
-					</button>	
-				</form>
-			</div>
-		</div>
+		</main>	
 		
 		<footer>
 			<div class="row footer">

@@ -16,50 +16,52 @@
 		
 	</head>
 	<body>
-		<header>
-			<div class="row header">
+		<main>
+			<header>
+				<div class="row header">
+					<div class="col-12">
+						<nav>
+							<div>
+								<a class="logo" href="/">PetTracker</a>
+							</div>
+							<div class="nav-links">
+								<ul>
+									<li class="nav-link hidden">
+										<a href="/login" class="nav-details">Join Now |</a>
+									</li>
+									<li class="nav-link hidden">
+										<a href="/login" class="nav-details"> Sign In |</a>
+									 </li>
+									 <li class="nav-link">
+										<a href="/logout" class="nav-details"> Sign Out</a>
+									 </li>
+								</ul>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</header>	
+			<div class="row add-pet-main js-add-pet">
 				<div class="col-12">
-					<nav>
-						<div>
-							<a class="logo" href="/">PetTracker</a>
+					<h1 class="sign-in-headline">
+						Add New Pet
+					</h1>
+					<form class="js-add-pet-form">
+						<div class="form-section">
+							<label for="pet-name">Pet's Name</label>
+							<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
 						</div>
-						<div class="nav-links">
-							<ul>
-								<li class="nav-link hidden">
-									<a href="/login" class="nav-details">Join Now |</a>
-								</li>
-								<li class="nav-link hidden">
-									<a href="/login" class="nav-details"> Sign In |</a>
-								 </li>
-								 <li class="nav-link">
-									<a href="/logout" class="nav-details"> Sign Out</a>
-								 </li>
-							</ul>
+						<div class="form-section">
+							<label for="pet-birthdate">Birthdate</label>
+							<input class="form-entry" id="datepicker" name="birthdate">
 						</div>
-					</nav>
+						<button type="submit" class="add-pet-button">
+							Add Pet
+						</button>	
+					</form>
 				</div>
 			</div>
-		</header>	
-		<div class="row add-pet-main js-add-pet">
-			<div class="col-12">
-				<h1 class="sign-in-headline">
-					Add New Pet
-				</h1>
-				<form class="js-add-pet-form">
-					<div class="form-section">
-						<label for="pet-name">Pet's Name</label>
-						<input type="text" class="form-entry" id="pet-name" name="pet-name" required>
-					</div>
-					<div class="form-section">
-						<label for="pet-birthdate">Birthdate</label>
-						<input class="form-entry" id="datepicker" name="birthdate">
-					</div>
-					<button type="submit" class="add-pet-button">
-						Add Pet
-					</button>	
-				</form>
-			</div>
-		</div>
+		</main>	
 		
 		<footer>
 			<div class="row footer">

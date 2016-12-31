@@ -14,144 +14,145 @@
 		
 	</head>
 	<body>
-		<header>
-			<div class="row header">
-				<div class="col-12">
-					<nav>
-						<div>
-							<a class="logo" href="/">PetTracker</a>
-						</div>
-						<div class="nav-links">
-							<ul>
-								<li class="nav-link hidden">
-									<a href="/login" class="nav-details">Join Now |</a>
-								</li>
-								<li class="nav-link hidden">
-									<a href="/login" class="nav-details"> Sign In |</a>
-								 </li>
-								 <li class="nav-link">
-									<a href="/dashboard" class="nav-details"> Dashboard |</a>
-								 </li>
-								 <li class="nav-link">
-									<a href="/logout" class="nav-details"> Sign Out</a>
-								 </li>
-							</ul>
-						</div>
-					</nav>
-				</div>
-			</div>
-		</header>	
-		<div class="row pet-details-head">
-			<div class="col-6">
-				<h1 class="pet-details-headline">
-				</h1>
-				<img class="pet-photo" src="" />
-				<button class="change-photo">Change Photo</button>
-				<form id="upload-photo" enctype="multipart/form-data" class="photo-upload hidden">
-					<input type="file" name="photo" id="photo-file" />
-					<input type="text" name="photo-pet-id" id="photo-pet-id" class="hidden"/>
-					<button type="submit">Upload Now</button>
-				</form>
-			</div>
-			<div class="col-6">
-				<div class="edit-pet-details-button-container">
-					<button class="edit-pet-details-button">Edit Details</button>
-					<button class="save-pet-details-button hidden">Save</button>
-					<button class="cancel-edit-button hidden">Cancel</button>
-				</div>	
-			</div>
-		</div>
-		<div class="row pet-details">
-			<div class="col-12 pet-details-section basic">
-				<h3 class="pet-details-section-headline">Basic Info</h3>
-				<div class="row basic-pet-details-content-container">
-					<div class="col-12 "> 
-						<div class="basic-pet-details-content">
-							<div class="pet-details-input-section hidden">
-								<label for="pet-name" class="pet-details-label">Name: </label>
-								<input type="text" class="pet-details-input " id="pet-name">
+		<main>
+			<header>
+				<div class="row header">
+					<div class="col-12">
+						<nav>
+							<div>
+								<a class="logo" href="/">PetTracker</a>
 							</div>
-							<div class="pet-details-input-section hidden">
-								<label for="datepicker" class="pet-details-label">Birthdate: </label>
-								<input type="text" class="pet-details-input " id="datepicker">
-							</div>	
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row pet-details">
-			<div class="col-12 pet-details-section medical">
-				<h3 class="pet-details-section-headline">Medical Info</h3>
-				<div class="row medical-pet-details-content-container">
-					<div class="col-12 "> 
-						<div class="medical-pet-details-content">
-							<div class="pet-details-input-section hidden">
-								<label for="vet-name" class="pet-details-label">Vet Name: </label>
-								<input type="text" class="pet-details-input " id="vet-name">
+							<div class="nav-links">
+								<ul>
+									<li class="nav-link hidden">
+										<a href="/login" class="nav-details">Join Now |</a>
+									</li>
+									<li class="nav-link hidden">
+										<a href="/login" class="nav-details"> Sign In |</a>
+									 </li>
+									 <li class="nav-link">
+										<a href="/dashboard" class="nav-details"> Dashboard |</a>
+									 </li>
+									 <li class="nav-link">
+										<a href="/logout" class="nav-details"> Sign Out</a>
+									 </li>
+								</ul>
 							</div>
-							<div class="pet-details-input-section hidden">
-								<label for="vet-phone" class="pet-details-label">Vet Phone: </label>
-								<input type="text" class="pet-details-input " id="vet-phone">
-							</div>	
-							<div class="pet-details-input-section hidden">
-								<label for="vet-email" class="pet-details-label">Vet Email: </label>
-								<input type="text" class="pet-details-input " id="vet-email">
-							</div>	
+						</nav>
+					</div>
+				</div>
+			</header>	
+			<div class="row pet-details-head">
+				<div class="col-6">
+					<h1 class="pet-details-headline">
+					</h1>
+					<img class="pet-photo" />
+					<button class="change-photo">Change Photo</button>
+					<form id="upload-photo" enctype="multipart/form-data" class="photo-upload hidden">
+						<input type="file" name="photo" id="photo-file" />
+						<input type="text" name="photo-pet-id" id="photo-pet-id" class="hidden"/>
+						<button type="submit">Upload Now</button>
+					</form>
+				</div>
+				<div class="col-6">
+					<div class="edit-pet-details-button-container">
+						<button class="edit-pet-details-button">Edit Details</button>
+						<button class="save-pet-details-button hidden">Save</button>
+						<button class="cancel-edit-button hidden">Cancel</button>
+					</div>	
+				</div>
+			</div>
+			<div class="row pet-details">
+				<div class="col-12 pet-details-section basic">
+					<h3 class="pet-details-section-headline">Basic Info</h3>
+					<div class="row basic-pet-details-content-container">
+						<div class="col-12 "> 
+							<div class="basic-pet-details-content">
+								<div class="pet-details-input-section hidden">
+									<label for="pet-name" class="pet-details-label">Name: </label>
+									<input type="text" class="pet-details-input " id="pet-name">
+								</div>
+								<div class="pet-details-input-section hidden">
+									<label for="datepicker" class="pet-details-label">Birthdate: </label>
+									<input type="text" class="pet-details-input " id="datepicker">
+								</div>	
+							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row pet-details">
-			<div class="col-12 pet-details-section food">
-				<h3 class="pet-details-section-headline">Food Info</h3>
-				<div class="row food-pet-details-content-container">
-					<div class="col-12"> 
-						<div class="food-details-content">
-							<div class="pet-details-input-section hidden">
-								<label for="food-name" class="pet-details-label">Food Name: </label>
-								<input type="text" class="pet-details-input " id="food-name">
-							</div>	
-							<div class="pet-details-input-section hidden">
-								<label for="cups-per-day" class="pet-details-label">Cups Per Day: </label>
-								<input type="text" class="pet-details-input " id="cups-per-day">
-							</div>	
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row pet-details">
-			<div class="col-12 pet-details-section records">
-				<h3 class="pet-details-section-headline">Records</h3>
-				<div class="row">
-					<div class="col-12 "> 
-						<div class="pet-details-content record-details-container">
+			<div class="row pet-details">
+				<div class="col-12 pet-details-section medical">
+					<h3 class="pet-details-section-headline">Medical Info</h3>
+					<div class="row medical-pet-details-content-container">
+						<div class="col-12 "> 
+							<div class="medical-pet-details-content">
+								<div class="pet-details-input-section hidden">
+									<label for="vet-name" class="pet-details-label">Vet Name: </label>
+									<input type="text" class="pet-details-input " id="vet-name">
+								</div>
+								<div class="pet-details-input-section hidden">
+									<label for="vet-phone" class="pet-details-label">Vet Phone: </label>
+									<input type="text" class="pet-details-input " id="vet-phone">
+								</div>	
+								<div class="pet-details-input-section hidden">
+									<label for="vet-email" class="pet-details-label">Vet Email: </label>
+									<input type="text" class="pet-details-input " id="vet-email">
+								</div>	
+							</div>
 
 						</div>
-						<button class="add-new-record-button">Add New Record</button>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		<div class="row file-upload hidden">
-			<div class="col-12 edit-pet-details">
-				<form id="upload-file" enctype="multipart/form-data" class="record-upload">
-					<h2 class="upload-record-headline">Upload New Record</h2>
-					<label for="record-type">Record Type</label>
-					<input name="record-type" type="text" placeholder="Rabies" />
-					<label for="record-details">Record Details</label>
-					<input name="record-details" type="text" placeholder="3 Year Rabies Cert" />
-					<input type="file" name="file" id="fileinfo" />
-					<input type="text" name="file-pet-id" id="file-pet-id" class="hidden"/>
-					<button type="submit">Upload Now</button>
-				</form>
+			<div class="row pet-details">
+				<div class="col-12 pet-details-section food">
+					<h3 class="pet-details-section-headline">Food Info</h3>
+					<div class="row food-pet-details-content-container">
+						<div class="col-12"> 
+							<div class="food-details-content">
+								<div class="pet-details-input-section hidden">
+									<label for="food-name" class="pet-details-label">Food Name: </label>
+									<input type="text" class="pet-details-input " id="food-name">
+								</div>	
+								<div class="pet-details-input-section hidden">
+									<label for="cups-per-day" class="pet-details-label">Cups Per Day: </label>
+									<input type="text" class="pet-details-input " id="cups-per-day">
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>	
-		
+			<div class="row pet-details">
+				<div class="col-12 pet-details-section records">
+					<h3 class="pet-details-section-headline">Records</h3>
+					<div class="row">
+						<div class="col-12 "> 
+							<div class="pet-details-content record-details-container">
+
+							</div>
+							<button class="add-new-record-button">Add New Record</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row file-upload hidden">
+				<div class="col-12 edit-pet-details">
+					<form id="upload-file" enctype="multipart/form-data" class="record-upload">
+						<h2 class="upload-record-headline">Upload New Record</h2>
+						<label for="record-type">Record Type</label>
+						<input name="record-type" type="text" placeholder="Rabies" />
+						<label for="record-details">Record Details</label>
+						<input name="record-details" type="text" placeholder="3 Year Rabies Cert" />
+						<input type="file" name="file" id="fileinfo" />
+						<input type="text" name="file-pet-id" id="file-pet-id" class="hidden"/>
+						<button type="submit">Upload Now</button>
+					</form>
+				</div>
+			</div>	
+		</main>	
 		<footer>
 			<div class="row footer">
 				<div class="col-12">
@@ -160,13 +161,14 @@
 			</div>
 		</footer>
 		
-		<!--link to local jquery -->
+		<!--link to local jquery 
 		<script src="/static/js/jquery/dist/jquery.js"></script> 
+		-->
 
-		<!--jquery cdn 
+		<!--jquery cdn -->
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
 		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-		  crossorigin="anonymous"></script> -->
+		  crossorigin="anonymous"></script> 
 
 		<script src="/static/js/moment.min.js"></script>  
 

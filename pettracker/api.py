@@ -29,7 +29,7 @@ def add_header(response):
 
 @app.route("/api/pets", methods=["GET"])
 @decorators.accept("application/json")
-@nocache
+#@nocache
 def pets_get(): 
 	"""Get list of pets"""
 
@@ -160,13 +160,6 @@ def update_pet_post():
 	return Response(data, 200, mimetype="application/json")	
 
 
-
-					
-
-				
-
-
-
 @app.route("/uploads/<filename>", methods = ["GET"])
 def uploaded_file(filename):	
 	return send_from_directory(upload_path(), filename)
@@ -193,6 +186,10 @@ def file_post():
 	data = record.as_dictionary()
 	return Response(json.dumps(data), 201, mimetype="application/json")
 
+@app.route("/photos/<filename>", methods = ["GET"])
+def uploaded_photo(filename):	
+	return send_from_directory(upload_photo_path(), filename)
+
 @app.route("/api/photos", methods = ["POST"])
 def photo_post(): 
 	file = request.files.get("photo")
@@ -201,6 +198,11 @@ def photo_post():
 	if not file: 
 		data = {"message": "Could not find photo data."}
 		return Response(json.dumps(data), 422, mimetype="application/json")
+
+	currentPhoto = session.query(Photo).filter(Photo.pet_id==pet_id).first()
+	if currentPhoto: 
+		session.delete(currentPhoto)
+		session.commit()	
 
 	filename = secure_filename(file.filename)
 
@@ -213,9 +215,22 @@ def photo_post():
 	data = photo.as_dictionary()
 	return Response(json.dumps(data), 201, mimetype="application/json")		
 
+@app.route("/api/get-photo/<int:id>", methods = ["GET"])
+def photo_get(id): 	
+	photoFile = session.query(Photo.file_name).filter(Photo.pet_id == id).first()
+	
+	if not photoFile: 
+		data = {"message": "No photo", "id": id}
+		return Response(json.dumps(data), 200, mimetype="application/json")
+
+	data = {"message": "Photo", "src": photoFile, "id": id}
+	return Response(json.dumps(data), 200, mimetype="application/json")
+
 @app.route("/api/delete-pet/<int:id>", methods = ["POST"])
 def delete_pet(id): 
 	pet = session.query(Pet).filter(Pet.id==id).first()
+	records = session.query(Record).filter(Record.pet_id==id).all()
+	photo = session.query(Photo).filter(Photo.pet_id==id).first()
 
 	if not pet: 
 		message = "Could not find pet with id {}".format(id)
@@ -223,14 +238,22 @@ def delete_pet(id):
 		return Response(data, 404, mimetype="application/json")
 
 	session.delete(pet)
+	session.delete(photo)
+	for record in records:
+		session.delete(record)
+
+
 	session.commit()
 
 	message = "Pet deleted successfully"
 	data = json.dumps({"message": message})	
 	return Response(data, 200, mimetype="application/json")
 
+
 @app.route("/more-details/api/more-details/<int:id>", methods = ["GET"])
 def get_details(id): 
+	data = {}
+
 	pet = session.query(Pet).filter(Pet.id==id).first()
 
 	vet_id = pet.vet_id
@@ -238,37 +261,41 @@ def get_details(id):
 
 	food = session.query(Food).filter(Food.pet_id==pet.id).first()
 
-	records = session.query(Record.file_name).filter(Record.pet_id == pet.id).all()
+	records = session.query(Record).filter(Record.pet_id == pet.id).all()
+
+	photo = session.query(Photo.file_name).filter(Photo.pet_id == pet.id).first()
 
 	if not pet: 
 		message = "Could not find pet with id {}".format(id)
+		data["message"] = message
+		data = json.dumps(data)
+		return Response(data, 404, mimetype="application/json")
+
+	if pet: 
+		data["pet"] = pet.as_dictionary()
+	if vet: 
+		data["vet"] = vet.as_dictionary()
+	if food: 
+		data["food"] = food.as_dictionary()
+	if records: 
+		data["records"] = [record.as_dictionary() for record in records]
+	if photo: 
+		data["photo"] = photo			
+
+	return Response(json.dumps(data), 200, mimetype="application/json")				
+		
+@app.route("/more-details/api/delete-record-<int:id>", methods = ["POST"])
+def delete_record(id): 
+	record = session.query(Record).filter(Record.id==id).first()
+
+	if not record: 
+		message = "Could not find record with id {}".format(id)
 		data = json.dumps({"message": message})
 		return Response(data, 404, mimetype="application/json")
-	
-	if (vet and food and records): 
-		data = json.dumps([pet.as_dictionary(), vet.as_dictionary(), food.as_dictionary(), records])
-	elif (vet and food):
-		data = json.dumps([pet.as_dictionary(), vet.as_dictionary(), food.as_dictionary(), []])
-	elif (vet and records): 
-		data = json.dumps([pet.as_dictionary(), vet.as_dictionary(), {}, records])
-	elif (vet):
-		data = json.dumps([pet.as_dictionary(), vet.as_dictionary(), {}, []])
 
-	elif (food and records): 
-		data = json.dumps([pet.as_dictionary(), {}, food.as_dictionary(), records])
-		
-	elif (food): 
-		data = json.dumps([pet.as_dictionary(), {}, food.as_dictionary(), []])
-	
-	
-	elif (records):
-		data = json.dumps([pet.as_dictionary(), {}, {}, records])
+	session.delete(record)
+	session.commit()
 
-	else: 	
-		data = json.dumps([pet.as_dictionary(), {}, {}, []])
-
+	message = "Record deleted successfully"
+	data = json.dumps({"message": message})	
 	return Response(data, 200, mimetype="application/json")
-
-
-		
-

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	//Toggle Sign In/Join
 	function toggleSignInJoin(){
 		signInInterface = $(".join-sign-in-main");

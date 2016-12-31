@@ -14,64 +14,66 @@
 		
 	</head>
 	<body>
-		<header>
-			<div class="row header">
+		<main>
+			<header>
+				<div class="row header">
+					<div class="col-12">
+						<nav>
+							<div>
+								<a class="logo" href="/">PetTracker</a>
+							</div>
+							<div class="nav-links">
+								<ul>
+									<li class="nav-link">
+										<a href="/login" class="nav-details">Join Now |</a>
+									</li>
+									<li class="nav-link">
+										<a href="/login" class="nav-details"> Sign In |</a>
+									 </li>
+									 <li class="nav-link">
+										<a href="/logout" class="nav-details"> Sign Out</a>
+									 </li>
+								</ul>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</header>	
+			<div class="row join-sign-in-main js-join">
 				<div class="col-12">
-					<nav>
-						<div>
-							<a class="logo" href="/">PetTracker</a>
+					<h1 class="sign-in-headline">
+						Get Started With PetTracker
+					</h1>
+						<div class="join-sign-in-toggle">
+							<span class="join-sign-in-toggle-question">
+							Already a member?</span> 
+							<a href="#" class="sign-in-link">Sign In Now</a>
 						</div>
-						<div class="nav-links">
-							<ul>
-								<li class="nav-link">
-									<a href="/login" class="nav-details">Join Now |</a>
-								</li>
-								<li class="nav-link">
-									<a href="/login" class="nav-details"> Sign In |</a>
-								 </li>
-								 <li class="nav-link">
-									<a href="/logout" class="nav-details"> Sign Out</a>
-								 </li>
-							</ul>
+					
+					<form role="form" method="POST" class="js-sign-in-form">
+						<div class="form-section name">
+							<label for="first-name">First Name</label>
+							<input type="text" class="form-entry name-entry" id="first-name" name="first-name" required>
 						</div>
-					</nav>
+						<div class="form-section name">
+							<label for="last-name">Last Name </label>
+							<input type="text" class="form-entry name-entry" id="last-name" name="last-name" required>
+						</div>
+						<div class="form-section">
+							<label for="email">Email</label>
+							<input type="email" class="form-entry js-email" id="email" name="email" required>
+						</div>
+						<div class="form-section">
+							<label for="password">Password  </label>
+							<input type="password" class="form-entry" id="password" name="password" required>
+						</div>
+							<button type="submit" class="join-sign-in-button">
+								Join PetTracker
+							</button>	
+					</form>
 				</div>
 			</div>
-		</header>	
-		<div class="row join-sign-in-main js-join">
-			<div class="col-12">
-				<h1 class="sign-in-headline">
-					Get Started With PetTracker
-				</h1>
-					<div class="join-sign-in-toggle">
-						<span class="join-sign-in-toggle-question">
-						Already a member?</span> 
-						<a href="#" class="sign-in-link">Sign In Now</a>
-					</div>
-				
-				<form role="form" method="POST" class="js-sign-in-form">
-					<div class="form-section name">
-						<label for="first-name">First Name</label>
-						<input type="text" class="form-entry name-entry" id="first-name" name="first-name" required>
-					</div>
-					<div class="form-section name">
-						<label for="last-name">Last Name </label>
-						<input type="text" class="form-entry name-entry" id="last-name" name="last-name" required>
-					</div>
-					<div class="form-section">
-						<label for="email">Email</label>
-						<input type="email" class="form-entry js-email" id="email" name="email" required>
-					</div>
-					<div class="form-section">
-						<label for="password">Password  </label>
-						<input type="password" class="form-entry" id="password" name="password" required>
-					</div>
-						<button type="submit" class="join-sign-in-button">
-							Join PetTracker
-						</button>	
-				</form>
-			</div>
-		</div>
+		</main>	
 		
 		<footer>
 			<div class="row footer">

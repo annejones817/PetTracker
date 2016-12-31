@@ -41,94 +41,103 @@ $(document).ready(function(){
 
 	//Get pet details
 	function getDetails(petDetailsPath) {
-			var baseURL = 'api' + petDetailsPath; 
-			$.ajax({
-				url: baseURL, 
-				dataType: 'json',
-				type: 'GET',
-				contentType: 'application/json',
-				success: function(data){
-					if (data) {
-						console.log(data);
-						displayDetails(data);
-					} else {
-						console.log("no data");
-					}
+		$('.pet-detail').remove();
+		var baseURL = 'api' + petDetailsPath; 
+		$.ajax({
+			url: baseURL, 
+			dataType: 'json',
+			type: 'GET',
+			contentType: 'application/json',
+			success: function(data){
+				if (data) {
+					displayDetails(data);
+				} else {
+					console.log("no data");
 				}
-			});
-		}
+			}
+		});
+	}
 
 	function generateResultsHTML(data){
 		var basicHTML = '';
 		var medicalHTML = '';
 		var foodHTML = '';
 		var recordsHTML = '';
-		if (data[0].name) {
-			basicHTML += '<div class="pet-detail">Name: ' + data[0].name + '</div>';
-			name = data[0].name;
+		var url = '/photos/paw-print.png'
+		if (data["photo"]) {
+			url = '/photos/' + data["photo"][0];
+		}
+		if (data["pet"]["name"]) {
+			basicHTML += '<div class="pet-detail">Name: ' + data["pet"]["name"] + '</div>';
+			name = data["pet"]["name"];
 			$('#pet-name').attr('value', name);
 		}
-		if (data[0].birthdate) {
-			birthdate = moment(data[0].birthdate).format("YYYY-MM-DD");
+		if (data["pet"]["birthdate"]) {
+			birthdate = moment(data["pet"]["birthdate"]).format("YYYY-MM-DD");
 			basicHTML += '<div class="pet-detail">Birthdate: ' + birthdate + '</div>';
 			$('#datepicker').attr('value', birthdate);
 		}
 		$('.basic-pet-details-content').append(basicHTML);
 		
-		if (data[1]) {
-			if (data[1].vet_name) {
-				medicalHTML += '<div class="pet-detail">Vet Name: ' + data[1].vet_name + '</div>';
-				vetName = data[1].vet_name;
+		if (data["vet"]) {
+			if (data["vet"]["vet_name"]) {
+				medicalHTML += '<div class="pet-detail">Vet Name: ' + data["vet"]["vet_name"] + '</div>';
+				vetName = data["vet"]["vet_name"];
 				$('#vet-name').attr('value', vetName);
 			}
 
-			if (data[1].vet_phone) {
-				medicalHTML += '<div class="pet-detail">Vet Phone: ' + data[1].vet_phone + '</div>';
-				vetPhone = data[1].vet_phone;
+			if (data["vet"]["vet_phone"]) {
+				medicalHTML += '<div class="pet-detail">Vet Phone: ' + data["vet"]["vet_phone"] + '</div>';
+				vetPhone = data["vet"]["vet_phone"];
 				$('#vet-phone').attr('value', vetPhone);
 			}
 
-			if (data[1].vet_email) {
-				medicalHTML += '<div class="pet-detail">Vet Email: ' + data[1].vet_email + '</div>';
-				vetEmail = data[1].vet_email;
+			if (data["vet"]["vet_email"]) {
+				medicalHTML += '<div class="pet-detail">Vet Email: ' + data["vet"]["vet_email"] + '</div>';
+				vetEmail = data["vet"]["vet_email"];
 				$('#vet-email').attr('value', vetEmail);
 			}
 			$('.medical-pet-details-content').append(medicalHTML);
 		}	
 
-		if (data[2]) {
-			if (data[2].food_name) {
-				foodHTML += '<div class="pet-detail">Food Name: ' + data[2].food_name + '</div>';
-				foodName = data[2].food_name;
+		if (data["food"]) {
+			if (data["food"]["food_name"]) {
+				foodHTML += '<div class="pet-detail">Food Name: ' + data["food"]["food_name"] + '</div>';
+				foodName = data["food"]["food_name"];
 				$('#food-name').attr('value', foodName);
 			}
 
-			if (data[2].cups_per_day) {
-				foodHTML += '<div class="pet-detail">Cups Per Day: ' + data[2].cups_per_day + '</div>';
-				cupsPerDay = data[2].cups_per_day;
+			if (data["food"]["cups_per_day"]) {
+				foodHTML += '<div class="pet-detail">Cups Per Day: ' + data["food"]["cups_per_day"] + '</div>';
+				cupsPerDay = data["food"]["cups_per_day"];
 				$('#cups-per-day').attr('value', cupsPerDay);
 			}
 			$('.food-details-content').append(foodHTML);
 		}
 
-		if (data[3]) {
-			for (var i=0; i<data[3].length; i++) {
-				recordsHTML += '<div class="pet-detail">' + data[3][i] + '</div>';
+		if (data["records"]) {
+			for (var i=0; i<data["records"].length; i++) {
+				recordsHTML += `<div class="pet-detail record-name"><span class="record-type">${data["records"][i]["record_type"]}</span><a class="record-file-link" href="/uploads/${data["records"][i]["record_name"]}" download> ${data["records"][i]["record_name"]} </a><span class="delete-record" id="delete-record-${data["records"][i]["id"]}">Delete</span></div>`;
 			}
 			$('.record-details-container').append(recordsHTML);
-		}	
+		}
+
+		$('.pet-photo').attr('src', url);	
+
 
 	}
 
 	function displayDetails(data) {
-		if (data[0].name) {
-			$('.pet-details-headline').text(data[0].name);		
+		if (data["pet"]["name"]) {
+			$('.pet-details-headline').text(data["pet"]["name"]);		
 			} else {
 			$('.pet-details-headline').text('Name error');
 		}
 		$('#file-pet-id').val(petID);
 		$('#photo-pet-id').val(petID);
 		generateResultsHTML(data);
+		
+
 	}
 
 	function progressHandlingFunction(e){
@@ -231,7 +240,7 @@ $(document).ready(function(){
 	        processData: false,
 	        dataType: 'json',
 	        success: function(data) {
-	        	console.log(data);
+	        	getDetails(petDetailsPath);
 	        }
 
 	    });
@@ -265,11 +274,30 @@ $(document).ready(function(){
 			processData: false, 
 			dataType: 'json', 
 			success: function(data) {
-				console.log(data); 
+				getDetails(petDetailsPath);
 			}	
 		});
 		$('#upload-photo').addClass('hidden');
 
+	}
+
+	//Delete Record
+	function deleteRecord(recordDeleteURL) {
+		var baseURL = 'api/' + recordDeleteURL;
+		$.ajax({
+			url: baseURL, 
+			dataType: 'json',
+			type: 'POST',
+			contentType: 'application/json',
+			success: function(data){
+				console.log(data);
+				if (data) {
+					console.log(data);
+				} else {
+					console.log("fail");
+				}
+			}
+		});
 	}
 
 	
@@ -318,5 +346,14 @@ $(document).ready(function(){
 	$('.pet-details-head').on('submit', '#upload-photo', function(event){
 		uploadPhoto();
 	})
-	
+
+	//Listen for delete record click
+	$('.record-details-container').on('click', '.delete-record', function(event){
+		var recordDeleteURL = $(this).attr("id");
+		deleteRecord(recordDeleteURL);
+		this.closest('div').remove();
+		this.remove();
+		
+	});
+		
 });
