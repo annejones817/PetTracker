@@ -13,30 +13,6 @@ def index():
 def login_get():
 	return app.send_static_file("html/signIn.html")
 
-@app.route("/login", methods=["POST"]) 
-def login_post(): 
-	first_name = request.form["first-name"]
-	last_name = request.form["last-name"]
-	email = request.form["email"]
-	password = request.form["password"]
-	user = session.query(User).filter_by(email=email).first()
-
-	if not user: 
-		print("new user")
-		user = User(first_name=first_name, last_name=last_name, email=email, password=generate_password_hash(password))
-		session.add(user)
-		session.commit()
-		return redirect(url_for("dashboard_get"))
-
-	if not check_password_hash(user.password, password):
-		print("wrong password")
-		flash("Incorrect username or password", "danger")
-		return redirect(url_for("login_get"))
-
-	login_user(user)
-	print("user logged in")
-	return redirect(url_for("dashboard_get"))	
-
 @app.route("/dashboard")
 def dashboard_get(): 
 	return app.send_static_file("html/dashboard.html")	

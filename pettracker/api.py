@@ -25,7 +25,50 @@ def add_header(response):
    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
    response.headers['Cache-Control'] = 'public, max-age=0'
    return response
-"""   
+"""  
+
+@app.route("/api/join", methods=["POST"]) 
+def signup_post(): 
+	data = request.json
+	first_name = data["first_name"]
+	last_name = data["last_name"]
+	email = data["email"]
+	password = data["password"]
+	user = session.query(User).filter_by(email=email).first()
+
+
+	if not user: 
+		user = User(first_name=first_name, last_name=last_name, email=email, password=generate_password_hash(password))
+		session.add(user)
+		session.commit()
+		data = json.dumps({"message": "New user created successfully"})
+		login_user(user)
+		return Response(data, 201, mimetype="application/json")
+
+	else: 
+		data = json.dumps({"message": "User already exists"})
+		return Response(data, 400, mimetype="application/json")	
+
+@app.route("/api/login", methods=["POST"]) 
+def login_post():	
+	data = request.json	 
+	print(data)
+	email = data["email"]
+	password = data["password"]
+	user = session.query(User).filter_by(email=email).first()
+
+	if not user: 
+		data = json.dumps({"message": "Invalid email and/or password"})
+		return Response(data, 400, mimetype="application/json")
+
+	if not check_password_hash(user.password, password):
+		data = json.dumps({"message": "Invalid email and/or password"})
+		return Response(data, 400, mimetype="application/json")	
+
+	else:
+		login_user(user)
+		data = json.dumps({"message": "Successful login"})
+		return Response(data, 200, mimetype="application/json")	
 
 @app.route("/api/pets", methods=["GET"])
 @decorators.accept("application/json")

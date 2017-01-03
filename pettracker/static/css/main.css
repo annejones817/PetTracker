@@ -42,7 +42,8 @@ header, footer {
 }
 
 .homepage-main, 
-.join-sign-in-main, 
+.join-main, 
+.sign-in-main,
 .dashboard-main, 
 .add-pet-main, 
 .edit-pet-main {
@@ -50,6 +51,7 @@ header, footer {
 }
 
 .homepage-headline, 
+.join-headline,
 .sign-in-headline, 
 .dashboard-headline
 .edit-pet-headline, 
@@ -115,7 +117,8 @@ footer {
 	bottom:0px;*/
 }
 
-.join-sign-in-main, 
+.join-main, 
+.sign-in-main,
 .add-pet-main, 
 .edit-pet-main {
 	text-align: center;
@@ -160,8 +163,13 @@ input {
 	min-width: 200px;
 }
 
-.join-sign-in-button {
+.join-button, 
+.sign-in-button {
 	font-size: .75em;
+}
+
+.sign-in-button {
+	margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 640px) {
@@ -307,5 +315,14 @@ input {
 }
 
 .delete-record:hover {
+	font-style: italic;
+}
+
+.forgot-password {
+	color: black;
+	font-size: .8em;
+}
+
+.forgot-password:hover {
 	font-style: italic;
 }
