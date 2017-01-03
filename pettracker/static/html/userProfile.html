@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<!--Resetting -->
+	    <meta charset="UTF-8">
+		<title>PetTracker</title>
+		<!-- Responsive viewport tag, tells small screens that it's responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--css reset for browser normalization -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" >
+		<link rel="stylesheet" type="text/css" href="/static/css/grid.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+		
+		
+	</head>
+	<body>
+		<main>
+			<header>
+				<div class="row header">
+					<div class="col-12">
+						<nav>
+							<div>
+								<a class="logo" href="/">PetTracker</a>
+							</div>
+							<div class="nav-links">
+								<ul>
+									<li class="nav-link">
+										<a href="/dashboard" class="nav-details"> Dashboard |</a>
+									 </li>
+									 <li class="nav-link">
+										<a href="/logout" class="nav-details"> Sign Out</a>
+									 </li>
+								</ul>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</header>	
+			<div class="row profile-main">
+				<div class="col-12">
+					<h1 class="profile-headline">
+					My Profile
+					</h1>
+					<div class="profile-name">
+						<div class="profile-detail current-name-detail">
+							
+						</div>
+						<label class="edit-profile-details hidden" for="first-name">First Name</label>
+						<input class="edit-profile-details hidden" type="text" id="first-name" name="first-name">
+						<label class="edit-profile-details hidden" for="last-name">Last Name</label>
+						<input class="edit-profile-details hidden" type="text" id="last-name" name="last-name">
+					</div>
+					<div class="profile-email">
+						<div class="profile-detail current-email-detail">
+
+						</div>
+
+						<label class="edit-profile-details hidden" for="current-email">Current Email</label>
+						<input class="edit-profile-details hidden" type="email" id="current-email" name="current-email">
+
+						<label class="edit-profile-details hidden" for="new-email">New Email</label>
+						<input class="edit-profile-details hidden" type="email" id="new-email" name="new-email">
+
+						<label class="edit-profile-details hidden" for="confirm-email">Confirm Email</label>
+						<input class="edit-profile-details hidden" type="email" id="confirm-email" name="confirm-email">
+					</div>
+					<div class="profile-password">
+						<div class="profile-detail current-password">
+							Password: &#42;&#42;&#42;&#42;&#42;&#42;&#42;
+						</div>
+
+						<label class="edit-profile-details hidden" for="current-password">Current Password</label>
+						<input class="edit-profile-details hidden" type="text" id="current-password" name="current-password">
+
+						<label class="edit-profile-details hidden" for="new-password">New Password</label>
+						<input class="edit-profile-details hidden" type="text" id="new-password" name="new-password">
+
+						<label class="edit-profile-details hidden" for="confirm-password">Confirm New Password</label>
+						<input class="edit-profile-details hidden" type="text" id="confirm-password" name="confirm-password">
+					</div>
+
+					<button class="edit-profile-button">
+						Edit
+					</button>
+					<button class = "save-profile-button hidden">
+						Save
+					</button>	
+				</div>
+			</div>
+		</main>	
+		
+		<footer>
+			<div class="row footer">
+				<div class="col-12">
+						Connect with us on Facebook, Twitter and Instagram
+				</div>
+			</div>
+		</footer>
+
+
+		
+
+		<!--link to local jquery 
+		<script src="../static/js/jquery/dist/jquery.js"></script> -->
+
+		<!--jquery cdn -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		  crossorigin="anonymous"></script> 
+		
+		<script src="static/js/profile.js"></script>
+	</body>
+</html>

@@ -34,7 +34,7 @@ def signup_post():
 	last_name = data["last_name"]
 	email = data["email"]
 	password = data["password"]
-	user = session.query(User).filter_by(email=email).first()
+	user = session.query(User).filter(User.email==email).first()
 
 
 	if not user: 
@@ -55,20 +55,35 @@ def login_post():
 	print(data)
 	email = data["email"]
 	password = data["password"]
-	user = session.query(User).filter_by(email=email).first()
+	user = session.query(User).filter(User.email==email).first()
 
 	if not user: 
 		data = json.dumps({"message": "Invalid email and/or password"})
-		return Response(data, 400, mimetype="application/json")
+		return Response(data, 422, mimetype="application/json")
 
 	if not check_password_hash(user.password, password):
 		data = json.dumps({"message": "Invalid email and/or password"})
-		return Response(data, 400, mimetype="application/json")	
+		return Response(data, 422, mimetype="application/json")	
 
 	else:
 		login_user(user)
 		data = json.dumps({"message": "Successful login"})
 		return Response(data, 200, mimetype="application/json")	
+
+@app.route("/api/profile-details", methods = ["GET"])
+def profile_getDetails(): 
+	user_id = current_user.id
+	first_name = session.query(User.first_name).filter(User.id == user_id).first()	
+	last_name = session.query(User.last_name).filter(User.id == user_id).first()	
+	email = session.query(User.email).filter(User.id == user_id).first()	
+
+	data = json.dumps({
+			"first_name": first_name, 
+			"last_name": last_name, 
+			"email": email
+		})
+
+	return Response(data, 200, mimetype="application/json")		
 
 @app.route("/api/pets", methods=["GET"])
 @decorators.accept("application/json")

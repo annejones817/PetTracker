@@ -32,4 +32,9 @@ def add_pet_get():
 def more_details_get(id): 
 	return app.send_static_file("html/petDetailsPage.html")	
 
+@app.route("/profile", methods = ["GET"])
+def profile_get(): 
+	return app.send_static_file("html/userProfile.html")
+
+
 

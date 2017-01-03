@@ -55,7 +55,8 @@ header, footer {
 .sign-in-headline, 
 .dashboard-headline
 .edit-pet-headline, 
-.pet-details-headline {
+.pet-details-headline, 
+.profile-headline {
 	font-size: 1.7em;
 	color: #011936;
 }
@@ -250,7 +251,9 @@ input {
 
 .edit-pet-details-button, 
 .save-pet-details-button, 
-.cancel-edit-button {
+.cancel-edit-button, 
+.edit-profile-button, 
+.save-profile-button {
 	padding: 5px 40px;
 	font-size: .9em;
 }
@@ -325,4 +328,14 @@ input {
 
 .forgot-password:hover {
 	font-style: italic;
+}
+
+.profile-detail {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.edit-profile-button, 
+.save-profile-button {
+	margin-bottom: 10px;
 }
