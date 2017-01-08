@@ -1,6 +1,12 @@
+html {
+	min-height: 100%;
+	position: relative;
+}
+
 body {
 	font-family: Helvetica, Arial, sans-serif;
 	background-color: #ddd8c4;
+	margin-bottom: 100px;
 }
 
 
@@ -56,9 +62,11 @@ header, footer {
 .dashboard-headline
 .edit-pet-headline, 
 .pet-details-headline, 
-.profile-headline {
+.profile-headline, 
+.reset-password-headline {
 	font-size: 1.7em;
 	color: #011936;
+	margin-bottom: 5px;
 }
 
 .homepage-headline {
@@ -114,8 +122,9 @@ button:hover {
 footer {
 	text-align:center;
 	padding: 30px;
-	/*position: absolute;
-	bottom:0px;*/
+	position: absolute;
+	bottom:0;
+	height: 75px;
 }
 
 .join-main, 
@@ -179,6 +188,9 @@ input {
 	}
 	.form-section {
 		text-align:center;
+	}
+	th {
+		width:15%;
 	}
 }
 
@@ -253,7 +265,8 @@ input {
 .save-pet-details-button, 
 .cancel-edit-button, 
 .edit-profile-button, 
-.save-profile-button {
+.save-profile-button, 
+.cancel-profile-button {
 	padding: 5px 40px;
 	font-size: .9em;
 }
@@ -313,17 +326,19 @@ input {
 	color: black;
 }
 
-.delete-record {
+.delete-record, 
+.delete-vaccine {
 	font-size: .75em;
 }
 
-.delete-record:hover {
+.delete-record:hover, 
+.delete-vaccine:hover {
 	font-style: italic;
 }
 
 .forgot-password {
 	color: black;
-	font-size: .8em;
+	font-size: 1em;
 }
 
 .forgot-password:hover {
@@ -336,6 +351,71 @@ input {
 }
 
 .edit-profile-button, 
-.save-profile-button {
+.save-profile-button, 
+.cancel-profile-button {
 	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+.user-alert-detail {
+	color:red;
+}
+
+
+.forgot-password-instructions {
+	margin-bottom: 10px;
+}
+
+#forgot-password-email {
+	display: block;
+	margin: 0 auto;
+}
+
+.forgot-password-buttons {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.social-media {
+	text-decoration: none;
+	color: black;
+	margin-left: 3px;
+	font-size: 1.15em;
+}
+
+.social-media:hover {
+	font-size: 1.2em;
+	color: #d2dede;
+}
+
+th.sorted.ascending:after {
+    content: "  \2191";
+}
+
+th.sorted.descending:after {
+    content: " \2193";
+}
+
+thead {
+	border-bottom: 1px dotted black;
+}
+
+th {
+	width: 180px;
+	text-align: left;
+	font-weight: bold;
+}
+
+.pet-details-label {
+	display: inline-block;
+	width:150px;
+}
+
+.add-new-vaccine {
+	font-weight: bold;
+}
+
+.reset-password-button {
+	margin-top: 10px;
+	display: block;
 }

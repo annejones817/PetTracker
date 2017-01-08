@@ -21,6 +21,8 @@ class User(Base, UserMixin):
     email = Column(String(128), unique=True, nullable=False)
     password = Column(String(128))
     join_date = Column(DateTime, default=datetime.datetime.now)
+    conf_uuid = Column(String(36))
+    email_confirmed = Column(Integer, default=0)
     
     pets = relationship("Pet", backref="owner")
     
@@ -88,6 +90,15 @@ class Vaccine(Base):
     expiration_date = Column(DateTime, nullable=False)
     
     pet_id = Column(Integer, ForeignKey("pets.id"), nullable = False)
+
+    def as_dictionary(self): 
+        vaccine = {
+            "id": self.id,
+            "vaccine_type": self.vaccine_type, 
+            "administration_date": str(self.administration_date), 
+            "expiration_date": str(self.expiration_date)
+        }
+        return vaccine
     
 class Medication(Base):
     __tablename__ = "medications"

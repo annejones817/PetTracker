@@ -4,11 +4,20 @@ $(document).ready(function(){
 	var petDetailsPath = window.location.pathname;
 	getDetails(petDetailsPath);
 
-	//Initialize datepicker for birthdate
+	//Make tables sortable on page load
+	$('.vaccine-table').tablesort();
+
+	//Initialize datepickers for birthdate
 	$('#datepicker').datepicker({
 		dateFormat: "yy-mm-dd", 
 		defaultDate: birthdate
 	});	
+
+	//Initiatlize datepickers for add vaccine
+	$('#vaccine-administered, #vaccine-expiration').datepicker({
+		dateFormat: "yy-mm-dd"
+	})
+
 
 	Date.prototype.getFromFormat = function(format) {
 	   var yyyy = this.getFullYear().toString();
@@ -36,13 +45,16 @@ $(document).ready(function(){
 	var vetEmail;
 	var foodName; 
 	var cupsPerDay;
+	var vaccineType; 
+	var administrationDate; 
+	var expirationDate;
 
 ////////Functions///////////////////////	
 
 	//Get pet details
 	function getDetails(petDetailsPath) {
 		$('.pet-detail').remove();
-		var baseURL = 'api' + petDetailsPath; 
+		var baseURL = '/api' + petDetailsPath; 
 		$.ajax({
 			url: baseURL, 
 			dataType: 'json',
@@ -50,6 +62,7 @@ $(document).ready(function(){
 			contentType: 'application/json',
 			success: function(data){
 				if (data) {
+					console.log(data);
 					displayDetails(data);
 				} else {
 					console.log("no data");
@@ -63,6 +76,7 @@ $(document).ready(function(){
 		var medicalHTML = '';
 		var foodHTML = '';
 		var recordsHTML = '';
+		var vaccinesHTML = '';
 		var url = '/photos/paw-print.png'
 		if (data["photo"]) {
 			url = '/photos/' + data["photo"][0];
@@ -122,6 +136,15 @@ $(document).ready(function(){
 			$('.record-details-container').append(recordsHTML);
 		}
 
+		if (data["vaccines"]) {
+			$('.vaccine-table').removeClass("hidden");
+			for (var j=0; j<data["vaccines"].length; j++) {
+				vaccinesHTML += `<tr class="pet-detail vaccine"><td class="vaccine-type">${data["vaccines"][j]["vaccine_type"]}</td><td class="vaccine-administered">${moment(data["vaccines"][j]["administration_date"]).format("YYYY-MM-DD")}</td><td class="vaccine-expiration">${moment(data["vaccines"][j]["expiration-date"]).format("YYYY-MM-DD")}</td><td class="delete-vaccine" id="delete-vaccine-${data["vaccines"][j]["id"]}">Delete</td></tr>`;
+				console.log(vaccinesHTML);
+				$('.vaccine-table-body').append(vaccinesHTML);
+			}
+		}
+
 		$('.pet-photo').attr('src', url);	
 
 
@@ -147,6 +170,7 @@ $(document).ready(function(){
 	}
 
 	function editDetails(){
+		$('.vaccine-table').addClass("hidden");
 		$('.pet-detail').remove();
 		$('.save-pet-details-button').removeClass('hidden');
 		$('.cancel-edit-button').removeClass('hidden');
@@ -162,6 +186,9 @@ $(document).ready(function(){
 		var vetEmail;
 		var foodName; 
 		var cupsPerDay;
+		var vaccineType; 
+		var administrationDate; 
+		var expirationDate;
 		var obj = {"pet-id": petID };
 
 		//Set variables
@@ -187,6 +214,17 @@ $(document).ready(function(){
 
 		cupsPerDay = $('#cups-per-day').val();
 		obj["cups-per-day"] = cupsPerDay; 
+
+		vaccineType = $('#vaccine-type').val();
+		obj["vaccine-type"] = vaccineType;
+
+		administrationDate = $('#vaccine-administered').val();
+		administrationDate = moment(administrationDate).format("YYYY-MM-DD HH:MM:SS");
+		obj["administration-date"] = administrationDate; 
+
+		expirationDate = $('#vaccine-expiration').val();
+		expirationDate = moment(expirationDate).format("YYYY-MM-DD HH:MM:SS");
+		obj["expiration-date"] = expirationDate; 
 
 		var baseURL = '/api/update-pet';
 		
@@ -283,9 +321,9 @@ $(document).ready(function(){
 
 	//Delete Record
 	function deleteRecord(recordDeleteURL) {
-		var baseURL = 'api/' + recordDeleteURL;
+		var url = '/api/' + recordDeleteURL;
 		$.ajax({
-			url: baseURL, 
+			url: url, 
 			dataType: 'json',
 			type: 'POST',
 			contentType: 'application/json',
@@ -295,6 +333,22 @@ $(document).ready(function(){
 					console.log(data);
 				} else {
 					console.log("fail");
+				}
+			}
+		});
+	}
+
+	//Delete Vaccine
+	function deleteVaccine(vaccineDeleteURL) {
+		var url = '/api/' + vaccineDeleteURL;
+		$.ajax({
+			url: url, 
+			dataType: 'json', 
+			type: 'POST', 
+			contentType: 'application/json', 
+			success: function(data){
+				if (data) {
+					console.log(data);
 				}
 			}
 		});
@@ -354,6 +408,13 @@ $(document).ready(function(){
 		this.closest('div').remove();
 		this.remove();
 		
+	});
+
+	//Listen for delete vaccine click
+	$('.vaccine-table-body').on('click', '.delete-vaccine', function(event){
+		var vaccineDeleteURL = $(this).attr("id");
+		deleteVaccine(vaccineDeleteURL); 
+		this.closest('tr').remove();
 	});
 		
 });

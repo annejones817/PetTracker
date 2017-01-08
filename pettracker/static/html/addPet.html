@@ -26,17 +26,20 @@
 							</div>
 							<div class="nav-links">
 								<ul>
-									<li class="nav-link hidden">
-										<a href="/login" class="nav-details">Join Now |</a>
+									<li class="nav-link nav-link-logged-out ">
+										<a href="/login" class="nav-details"> Join Now | </a>
 									</li>
-									<li class="nav-link hidden">
-										<a href="/login" class="nav-details"> Sign In |</a>
+									<li class="nav-link nav-link-logged-out ">
+										<a href="/login" class="nav-details"> Sign In </a>
 									 </li>
-									 <li class="nav-link">
-										<a href="/logout" class="nav-details"> Sign Out |</a>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/dashboard" class="nav-details"> Dashboard | </a>
 									 </li>
-									 <li class="nav-link">
-										<a href="/profile" class="nav-details"> Profile </a>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/profile" class="nav-details"> Profile | </a>
+									 </li>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/logout" class="nav-details"> Sign Out </a>
 									 </li>
 								</ul>
 							</div>
@@ -69,7 +72,10 @@
 		<footer>
 			<div class="row footer">
 				<div class="col-12">
-						Connect with us on Facebook, Twitter and Instagram
+						Connect with us: 
+						<a class="social-media" href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i> </a>
+						<a class="social-media" href="#"><i class="fa fa-twitter-square social-media" aria-hidden="true"></i></a>
+						<a class="social-media" href="#"><i class="fa fa-instagram social-media" aria-hidden="true"></i></a>
 				</div>
 			</div>
 		</footer>
@@ -80,6 +86,8 @@
 		<!--link to local jquery 
 		<script src="../static/js/jquery/dist/jquery.js"></script> -->
 
+		<script src="https://use.fontawesome.com/7026219ebd.js"></script>
+		
 		<!--jquery cdn -->
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
 		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -89,5 +97,6 @@
 		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 		
 		<script src="static/js/addpet.js"></script>
+		<script src="../static/js/nav.js"></script>
 	</body>
 </html>

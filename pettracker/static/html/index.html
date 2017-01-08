@@ -23,14 +23,20 @@
 							</div>
 							<div class="nav-links">
 								<ul>
-									<li class="nav-link">
-										<a href="/login" class="nav-details">Join Now |</a>
+									<li class="nav-link nav-link-logged-out ">
+										<a href="/login" class="nav-details"> Join Now | </a>
 									</li>
-									<li class="nav-link">
+									<li class="nav-link nav-link-logged-out ">
 										<a href="/login" class="nav-details"> Sign In </a>
 									 </li>
-									 <li class="nav-link">
-										<a href="/logout" class="nav-details hidden"> Sign Out</a>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/dashboard" class="nav-details"> Dashboard | </a>
+									 </li>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/profile" class="nav-details"> Profile | </a>
+									 </li>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/logout" class="nav-details"> Sign Out </a>
 									 </li>
 								</ul>
 							</div>
@@ -87,7 +93,10 @@
 		<footer>
 			<div class="row footer">
 				<div class="col-12">
-						Connect with us on Facebook, Twitter and Instagram
+						Connect with us: 
+						<a class="social-media" href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i> </a>
+						<a class="social-media" href="#"><i class="fa fa-twitter-square social-media" aria-hidden="true"></i></a>
+						<a class="social-media" href="#"><i class="fa fa-instagram social-media" aria-hidden="true"></i></a>
 				</div>
 			</div>
 		</footer>
@@ -102,7 +111,9 @@
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
 		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 		  crossorigin="anonymous"></script> -->
+
 		<script src="../static/js/app.js"></script> 
+		<script src="../static/js/nav.js"></script>
 
 	</body>
 </html>

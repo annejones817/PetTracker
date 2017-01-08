@@ -20,8 +20,6 @@ def dashboard_get():
 @app.route("/logout")
 def logout(): 
 	logout_user();
-	flash("Successfully logged out.")
-	print("Successfully logged out.")
 	return redirect(url_for("index"))	
 
 @app.route("/add-pet", methods = ["GET"])
@@ -35,6 +33,12 @@ def more_details_get(id):
 @app.route("/profile", methods = ["GET"])
 def profile_get(): 
 	return app.send_static_file("html/userProfile.html")
+
+@app.route("/reset", methods = ["GET"])
+def reset_get(): 
+	return app.send_static_file("html/resetPassword.html")	
+
+	
 
 
 

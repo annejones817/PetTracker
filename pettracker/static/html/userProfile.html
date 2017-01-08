@@ -26,11 +26,20 @@
 							</div>
 							<div class="nav-links">
 								<ul>
-									<li class="nav-link">
-										<a href="/dashboard" class="nav-details"> Dashboard |</a>
+									<li class="nav-link nav-link-logged-out ">
+										<a href="/login" class="nav-details"> Join Now | </a>
+									</li>
+									<li class="nav-link nav-link-logged-out ">
+										<a href="/login" class="nav-details"> Sign In </a>
 									 </li>
-									 <li class="nav-link">
-										<a href="/logout" class="nav-details"> Sign Out</a>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/dashboard" class="nav-details"> Dashboard | </a>
+									 </li>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/profile" class="nav-details"> Profile | </a>
+									 </li>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/logout" class="nav-details"> Sign Out </a>
 									 </li>
 								</ul>
 							</div>
@@ -43,19 +52,14 @@
 					<h1 class="profile-headline">
 					My Profile
 					</h1>
+					<div class="user-alerts"></div>
 					<div class="profile-name">
-						<div class="profile-detail current-name-detail">
-							
-						</div>
 						<label class="edit-profile-details hidden" for="first-name">First Name</label>
 						<input class="edit-profile-details hidden" type="text" id="first-name" name="first-name">
 						<label class="edit-profile-details hidden" for="last-name">Last Name</label>
 						<input class="edit-profile-details hidden" type="text" id="last-name" name="last-name">
 					</div>
 					<div class="profile-email">
-						<div class="profile-detail current-email-detail">
-
-						</div>
 
 						<label class="edit-profile-details hidden" for="current-email">Current Email</label>
 						<input class="edit-profile-details hidden" type="email" id="current-email" name="current-email">
@@ -67,18 +71,16 @@
 						<input class="edit-profile-details hidden" type="email" id="confirm-email" name="confirm-email">
 					</div>
 					<div class="profile-password">
-						<div class="profile-detail current-password">
-							Password: &#42;&#42;&#42;&#42;&#42;&#42;&#42;
-						</div>
+						
 
 						<label class="edit-profile-details hidden" for="current-password">Current Password</label>
-						<input class="edit-profile-details hidden" type="text" id="current-password" name="current-password">
+						<input class="edit-profile-details hidden" type="password" id="current-password" name="current-password">
 
 						<label class="edit-profile-details hidden" for="new-password">New Password</label>
-						<input class="edit-profile-details hidden" type="text" id="new-password" name="new-password">
+						<input class="edit-profile-details hidden" type="password" id="new-password" name="new-password">
 
 						<label class="edit-profile-details hidden" for="confirm-password">Confirm New Password</label>
-						<input class="edit-profile-details hidden" type="text" id="confirm-password" name="confirm-password">
+						<input class="edit-profile-details hidden" type="password" id="confirm-password" name="confirm-password">
 					</div>
 
 					<button class="edit-profile-button">
@@ -87,6 +89,9 @@
 					<button class = "save-profile-button hidden">
 						Save
 					</button>	
+					<button class = "cancel-profile-button hidden">
+						Cancel
+					</button>	
 				</div>
 			</div>
 		</main>	
@@ -94,10 +99,14 @@
 		<footer>
 			<div class="row footer">
 				<div class="col-12">
-						Connect with us on Facebook, Twitter and Instagram
+						Connect with us: 
+						<a class="social-media" href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i> </a>
+						<a class="social-media" href="#"><i class="fa fa-twitter-square social-media" aria-hidden="true"></i></a>
+						<a class="social-media" href="#"><i class="fa fa-instagram social-media" aria-hidden="true"></i></a>
 				</div>
 			</div>
 		</footer>
+
 
 
 		
@@ -105,11 +114,15 @@
 		<!--link to local jquery 
 		<script src="../static/js/jquery/dist/jquery.js"></script> -->
 
+		<script src="https://use.fontawesome.com/7026219ebd.js"></script>
+
 		<!--jquery cdn -->
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
 		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 		  crossorigin="anonymous"></script> 
 		
 		<script src="static/js/profile.js"></script>
+
+		<script src="../static/js/nav.js"></script>
 	</body>
 </html>

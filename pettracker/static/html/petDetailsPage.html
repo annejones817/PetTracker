@@ -14,6 +14,7 @@
 		
 	</head>
 	<body>
+		<div class="container">
 		<main>
 			<header>
 				<div class="row header">
@@ -24,20 +25,20 @@
 							</div>
 							<div class="nav-links">
 								<ul>
-									<li class="nav-link hidden">
-										<a href="/login" class="nav-details">Join Now |</a>
+									<li class="nav-link nav-link-logged-out ">
+										<a href="/login" class="nav-details"> Join Now | </a>
 									</li>
-									<li class="nav-link hidden">
-										<a href="/login" class="nav-details"> Sign In |</a>
+									<li class="nav-link nav-link-logged-out ">
+										<a href="/login" class="nav-details"> Sign In </a>
 									 </li>
-									 <li class="nav-link">
-										<a href="/dashboard" class="nav-details"> Dashboard |</a>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/dashboard" class="nav-details"> Dashboard | </a>
 									 </li>
-									 <li class="nav-link">
-										<a href="/logout" class="nav-details"> Sign Out |</a>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/profile" class="nav-details"> Profile | </a>
 									 </li>
-									 <li class="nav-link">
-										<a href="/profile" class="nav-details"> Profile </a>
+									 <li class="nav-link nav-link-logged-in">
+										<a href="/logout" class="nav-details"> Sign Out </a>
 									 </li>
 								</ul>
 							</div>
@@ -67,7 +68,7 @@
 			</div>
 			<div class="row pet-details">
 				<div class="col-12 pet-details-section basic">
-					<h3 class="pet-details-section-headline">Basic Info</h3>
+					<h3 class="pet-details-section-headline">Basic</h3>
 					<div class="row basic-pet-details-content-container">
 						<div class="col-12 "> 
 							<div class="basic-pet-details-content">
@@ -86,7 +87,7 @@
 			</div>
 			<div class="row pet-details">
 				<div class="col-12 pet-details-section medical">
-					<h3 class="pet-details-section-headline">Medical Info</h3>
+					<h3 class="pet-details-section-headline">Vet</h3>
 					<div class="row medical-pet-details-content-container">
 						<div class="col-12 "> 
 							<div class="medical-pet-details-content">
@@ -109,8 +110,47 @@
 				</div>
 			</div>
 			<div class="row pet-details">
+				<div class="col-12 pet-details-section vaccine">
+					<h3 class="pet-details-section-headline">Vaccines</h3>
+					<div class="row vaccine-pet-details-content-container">
+						<div class="col-12 "> 
+							<div class="vaccine-pet-details-content">
+								<table class="vaccine-table hidden">
+									<thead>
+										<tr>
+											<th>Vaccine Type</th>
+											<th>Administration Date</th>
+											<th>Expiration Date</th>
+											<th></th>
+										</tr>	
+									</thead>
+									<tbody class="vaccine-table-body">
+										
+									</tbody>
+								</table>
+								<div class="add-vaccine pet-details-input-section hidden">
+									<span class="add-new-vaccine">Add New Vaccine</span>
+								</div>
+								<div class="pet-details-input-section hidden">
+									<label for="vaccine-type" class="pet-details-label">Vaccine Type: </label>
+									<input type="text" class="pet-details-input " id="vaccine-type">
+								</div>	
+								<div class="pet-details-input-section hidden">
+									<label for="vaccine-administered" class="pet-details-label">Administration Date: </label>
+									<input class="pet-details-input " id="vaccine-administered">
+								</div>
+								<div class="pet-details-input-section hidden">
+									<label for="vaccine-expiration" class="pet-details-label">Expiration Date: </label>
+									<input class="pet-details-input " id="vaccine-expiration">
+								</div>		
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row pet-details">
 				<div class="col-12 pet-details-section food">
-					<h3 class="pet-details-section-headline">Food Info</h3>
+					<h3 class="pet-details-section-headline">Food</h3>
 					<div class="row food-pet-details-content-container">
 						<div class="col-12"> 
 							<div class="food-details-content">
@@ -157,16 +197,22 @@
 			</div>	
 		</main>	
 		<footer>
-			<div class="row footer">
+			<div class="row">
 				<div class="col-12">
-						Connect with us on Facebook, Twitter and Instagram
+						Connect with us: 
+						<a class="social-media" href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i> </a>
+						<a class="social-media" href="#"><i class="fa fa-twitter-square social-media" aria-hidden="true"></i></a>
+						<a class="social-media" href="#"><i class="fa fa-instagram social-media" aria-hidden="true"></i></a>
 				</div>
 			</div>
 		</footer>
+		</div>
 		
 		<!--link to local jquery 
 		<script src="/static/js/jquery/dist/jquery.js"></script> 
 		-->
+
+		<script src="https://use.fontawesome.com/7026219ebd.js"></script>
 
 		<!--jquery cdn -->
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -180,6 +226,9 @@
 		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 
 		<script src="/static/js/petDetails.js"></script> 
+		<script src="/static/js/tablesort/jquery.tablesort.js"></script>
+
+		<script src="../static/js/nav.js"></script>
 
 	</body>
 </html>

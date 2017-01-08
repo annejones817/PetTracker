@@ -30,7 +30,7 @@ $(document).ready(function(){
 			$('.pets-container').prepend(petCardsHTML);	
 			$('.pettracker-container').append(petTrackerHTML);		
 		} else {
-			$('.pettracker-headline').text('Add a pet to get started.')
+			$('.pettracker-headline').text('Please add a pet below to get started.')
 		}
 	}
 
@@ -43,7 +43,7 @@ $(document).ready(function(){
 	}
 
 	function getPetPhoto(petID) {
-		var baseURL = 'api/get-photo/' + petID; 
+		var baseURL = '/api/get-photo/' + petID; 
 		$.ajax({
 			url: baseURL, 
 			dataType: 'json',
@@ -80,7 +80,7 @@ $(document).ready(function(){
 
 	function getPetTrackerDetails(petID) {
 		console.log("get details running");
-		var baseURL = '/more-details/api/more-details/' + petID; 
+		var baseURL = '/api/more-details/' + petID; 
 		$.ajax({
 			url: baseURL, 
 			dataType: 'json', 
@@ -88,6 +88,7 @@ $(document).ready(function(){
 			contentType: 'application/json',
 			success: function(data){
 				if (data) {
+					console.log(data);
 					updatePetTracker(data);
 				} else {
 					console.log('fail');
@@ -106,6 +107,11 @@ $(document).ready(function(){
 		///Add birthday related details
 		petTrackerDetailsHTML += '<div class="pet-tracker-detail birthday">Birthday: ' + formattedBirthdate + '</div>' +
 		'<div class="pet-tracker-detail birthday">Age: ' + petAge + ' year(s)</div>';
+		if (data["vaccines"]) {
+			for (var i=0; i<data["vaccines"].length; i++) {
+				petTrackerDetailsHTML += `<div class="pet-tracker-detail vaccine">${data["vaccines"][i]["vaccine_type"]} vaccine expires on ${moment(data["vaccines"][i]["expiration_date"]).format("MM/DD/YYYY")}</div>`
+			}
+		}
 		$('.pet-tracker-details-container-' + petID).append(petTrackerDetailsHTML);
 
 	}

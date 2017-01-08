@@ -1,5 +1,6 @@
 import os.path
 import json 
+import uuid
 
 from flask import Response, jsonify, render_template, request, redirect, url_for as url_for, flash, send_from_directory
 from flask_login import login_user, login_required, current_user, logout_user
@@ -10,22 +11,11 @@ from . import decorators
 from .utils import upload_path, upload_photo_path
 from .nocache import nocache
 from .config import DevelopmentConfig
+from flask_mail import Message
+from .views import index
 
-from . import app 
+from . import app, mail 
 
-
-
-"""
-@app.after_request
-def add_header(response):
-   
-   Add headers to both force latest IE rendering engine or Chrome Frame,
-   and also to cache the rendered page for 10 minutes.
-  
-   response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
-   response.headers['Cache-Control'] = 'public, max-age=0'
-   return response
-"""  
 
 @app.route("/api/join", methods=["POST"]) 
 def signup_post(): 
@@ -34,36 +24,37 @@ def signup_post():
 	last_name = data["last_name"]
 	email = data["email"]
 	password = data["password"]
+	conf_uuid = uuid.uuid4()
 	user = session.query(User).filter(User.email==email).first()
 
 
 	if not user: 
-		user = User(first_name=first_name, last_name=last_name, email=email, password=generate_password_hash(password))
+		user = User(first_name=first_name, last_name=last_name, email=email, password=generate_password_hash(password), conf_uuid=conf_uuid)
 		session.add(user)
 		session.commit()
-		data = json.dumps({"message": "New user created successfully"})
+		user_id = session.query(User.id).filter(User.email == email).first()
+		data = json.dumps({"message": "New user created successfully", "user_id": user_id})
 		login_user(user)
 		return Response(data, 201, mimetype="application/json")
 
 	else: 
 		data = json.dumps({"message": "User already exists"})
-		return Response(data, 400, mimetype="application/json")	
+		return Response(data, 200, mimetype="application/json")	
 
 @app.route("/api/login", methods=["POST"]) 
 def login_post():	
 	data = request.json	 
-	print(data)
 	email = data["email"]
 	password = data["password"]
 	user = session.query(User).filter(User.email==email).first()
 
 	if not user: 
 		data = json.dumps({"message": "Invalid email and/or password"})
-		return Response(data, 422, mimetype="application/json")
+		return Response(data, 200, mimetype="application/json")
 
-	if not check_password_hash(user.password, password):
+	if not (check_password_hash(user.password, password)):
 		data = json.dumps({"message": "Invalid email and/or password"})
-		return Response(data, 422, mimetype="application/json")	
+		return Response(data, 200, mimetype="application/json")	
 
 	else:
 		login_user(user)
@@ -84,6 +75,49 @@ def profile_getDetails():
 		})
 
 	return Response(data, 200, mimetype="application/json")		
+
+@app.route("/api/profile-update", methods = ["POST"])
+def profile_updateDetails(): 
+	user_id = current_user.id
+	data = request.json
+	first_name = data["first-name"]
+	last_name = data["last-name"]
+	current_email = data["current-email"]
+	new_email = data["new-email"]
+	current_password = data["current-password"]
+	new_password = data["new-password"]
+	message = ''
+
+	user = session.query(User).filter(User.id == user_id).first()	
+
+	if (first_name != '' and user.first_name != first_name): 	
+		user.first_name = first_name
+
+	if (last_name != '' and user.last_name != last_name):
+		user.last_name = last_name
+
+	if (current_email != '' and user.email != current_email): 
+		message	+= 'Current email and/or current password not correct'
+
+	if (current_email != '' and user.email == current_email and new_email != '' and current_email != new_email):
+		user.email = new_email 
+
+	if (current_password != ''):	
+
+		if not check_password_hash(user.password, current_password):
+			message += 'Current password and/or current email not correct'	
+
+		if (check_password_hash(user.password, current_password) and new_password != '' and current_password != new_password): 
+			user.password = generate_password_hash(new_password)
+
+	session.commit() 
+	
+	data = json.dumps({"message": message})
+
+	return Response(data, 201, mimetype = "application/json")		
+
+
+
 
 @app.route("/api/pets", methods=["GET"])
 @decorators.accept("application/json")
@@ -131,9 +165,13 @@ def update_pet_post():
 	vet_email = ''
 	food_name = ''
 	cups_per_day = ''
+	vaccine_type = ''
+	administration_date = ''
+	expiration_date = ''
 	basic = False
 	vet = False
 	food = False
+	vaccine = False
 	pet = session.query(Pet).filter(Pet.id == pet_id).first()
 	message = ''
 
@@ -159,6 +197,11 @@ def update_pet_post():
 	if (data["cups-per-day"] != ''): 
 		cups_per_day = data["cups-per-day"]	
 		food = True	
+	if (data["vaccine-type"] != '' and data["administration-date"] != '' and data["expiration-date"] != ''): 
+		vaccine_type = data["vaccine-type"]
+		administration_date = data["administration-date"]
+		expiration_date = data["expiration-date"]
+		vaccine = True	
 
 	#Update basic pet info
 	if (basic == True): 
@@ -197,6 +240,7 @@ def update_pet_post():
 				new_vet = session.query(Vet).filter(Vet.vet_name == vet.vet_name).first()
 				pet.vet_id = new_vet.id
 				message += "Vet info updated. "
+
 	#Update food info
 	if (food == True):
 		current_food = session.query(Food).filter(Food.pet_id == pet_id).first()
@@ -212,7 +256,15 @@ def update_pet_post():
 			new_food = Food(food_name = food_name, cups_per_day = cups_per_day, pet_id = pet_id)
 			session.add(new_food)
 			session.commit()
-			message += "Food info updated. "	
+			message += "Food info updated. "
+
+	#Update vaccine info 
+	if (vaccine == True): 
+		new_vaccine = Vaccine(vaccine_type = vaccine_type, administration_date = administration_date, expiration_date = expiration_date, pet_id = pet_id)
+		session.add(new_vaccine)
+		session.commit()
+		message += "Vaccine info updated"
+
 
 	data=json.dumps({"message": message})
 	return Response(data, 200, mimetype="application/json")	
@@ -289,6 +341,7 @@ def delete_pet(id):
 	pet = session.query(Pet).filter(Pet.id==id).first()
 	records = session.query(Record).filter(Record.pet_id==id).all()
 	photo = session.query(Photo).filter(Photo.pet_id==id).first()
+	vaccines = session.query(Vaccine).filter(Vaccine.pet_id==id).all()
 
 	if not pet: 
 		message = "Could not find pet with id {}".format(id)
@@ -296,9 +349,14 @@ def delete_pet(id):
 		return Response(data, 404, mimetype="application/json")
 
 	session.delete(pet)
-	session.delete(photo)
-	for record in records:
-		session.delete(record)
+	if photo: 
+		session.delete(photo)
+	if records:
+		for record in records:
+			session.delete(record)
+	if vaccines: 
+		for vaccine in vaccines: 
+			session.delete(vaccine)		
 
 
 	session.commit()
@@ -308,7 +366,7 @@ def delete_pet(id):
 	return Response(data, 200, mimetype="application/json")
 
 
-@app.route("/more-details/api/more-details/<int:id>", methods = ["GET"])
+@app.route("/api/more-details/<int:id>", methods = ["GET"])
 def get_details(id): 
 	data = {}
 
@@ -322,6 +380,8 @@ def get_details(id):
 	records = session.query(Record).filter(Record.pet_id == pet.id).all()
 
 	photo = session.query(Photo.file_name).filter(Photo.pet_id == pet.id).first()
+
+	vaccines = session.query(Vaccine).filter(Vaccine.pet_id == pet.id).all()
 
 	if not pet: 
 		message = "Could not find pet with id {}".format(id)
@@ -338,11 +398,15 @@ def get_details(id):
 	if records: 
 		data["records"] = [record.as_dictionary() for record in records]
 	if photo: 
-		data["photo"] = photo			
+		data["photo"] = photo
+	if vaccines: 
+		data["vaccines"] = [vaccine.as_dictionary() for vaccine in vaccines]
+
+	print(data)					
 
 	return Response(json.dumps(data), 200, mimetype="application/json")				
 		
-@app.route("/more-details/api/delete-record-<int:id>", methods = ["POST"])
+@app.route("/api/delete-record-<int:id>", methods = ["POST"])
 def delete_record(id): 
 	record = session.query(Record).filter(Record.id==id).first()
 
@@ -357,3 +421,106 @@ def delete_record(id):
 	message = "Record deleted successfully"
 	data = json.dumps({"message": message})	
 	return Response(data, 200, mimetype="application/json")
+
+@app.route("/api/delete-vaccine-<int:id>", methods = ["POST"])
+def delete_vaccine(id): 
+	vaccine = session.query(Vaccine).filter(Vaccine.id==id).first()
+
+	if not vaccine: 
+		message = "Could not find record with id {}".format(id)
+		data = json.dumps({"message": message})
+		return Response(data, 404, mimetype="application/json")
+
+	session.delete(vaccine)
+	session.commit()
+
+	message = "Vaccine deleted successfully"
+	data = json.dumps({"message": message})	
+	return Response(data, 200, mimetype="application/json")	
+
+@app.route("/api/confirm-email", methods=["POST"])
+def send_confirm_email(): 
+	data = request.json
+	user_id = data["user_id"][0]
+	user = session.query(User).filter(User.id == user_id).first()
+
+	msg=Message("Confirm PetTracker Account",
+		sender="pettrackermail@gmail.com",
+		recipients=[user.email])
+
+	msg.html = '<h1>Welcome to PetTracker!</h1><p>Please confirm your email address by clicking the button below.</p><a href="http://localhost:8080/api/confirm?gid=' + user.conf_uuid + '&email=' + user.email + '"><button>Confirm Email</button></a>'
+
+	mail.send(msg)
+
+	data = json.dumps({"message": "Confirmation email sent"})
+
+	return Response(data, 200, mimetype="application/json")
+
+@app.route("/api/confirm")
+def confirm_email(): 
+	email = request.args.get('email')
+	conf_uuid = request.args.get('gid')
+	user = session.query(User).filter(User.email == email).first()
+
+	if (user.conf_uuid == conf_uuid):
+		user.email_confirmed = 1
+		session.commit()
+
+	return redirect(url_for("index"))
+
+
+
+@app.route("/api/forgot-password", methods=["POST"])
+def send_forgot_password_email(): 
+	data = request.json
+	email = data["email"]
+	user = session.query(User).filter(User.email == data["email"]).first()
+	print (user.email)
+	print (user.conf_uuid)
+
+	msg=Message("Reset PetTracker Password", 
+			sender = "pettrackermail@gmail.com", 
+			recipients=[email])
+
+	msg.html = '<h1>Reset PetTracker Password</h1><p>To reset your PetTracker password, please click the button below.</p><a href="http://localhost:8080/reset?gid=' + user.conf_uuid + '&email=' + user.email + '"><button>Reset Password</button></a>'
+
+	mail.send(msg)
+
+	data=json.dumps({"message": "Reset password email sent."})
+
+	return Response(data, 200, mimetype="application/json")		
+
+@app.route("/api/reset-password", methods=["POST"])
+def reset_password(): 
+	data = request.json
+	email = data["email"]
+	gid = data["gid"]
+	newPassword = data["new-password"]
+
+	user = session.query(User).filter(User.email == email).first()
+
+	if (user.conf_uuid == gid): 
+		user.password = generate_password_hash(newPassword)
+		session.commit() 
+		login_user(user)
+		message = "Successful reset"
+	else: 
+		message = "Unsuccessful rest"		
+
+	data = json.dumps({"message": message})
+
+	return Response(data, 200, mimetype="application/json")
+
+@app.route("/api/check-login", methods=["GET"])
+def check_login(): 
+	message = ''
+
+	if (current_user.is_authenticated == True):
+		message += 'Logged in'
+	else: 
+		message += 'Not logged in'
+
+	data = json.dumps({"message": message})
+
+	return Response(data, 200, mimetype="application/json")	
+
