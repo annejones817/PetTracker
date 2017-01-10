@@ -1,1 +1,1 @@
-web: gunicorn pettracker:app --log-file=-
+web: gunicorn pettracker:app
