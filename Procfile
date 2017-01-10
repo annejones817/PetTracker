@@ -1,1 +1,1 @@
-web: gunicorn pettracker:app
+web: gunicorn manage:app
