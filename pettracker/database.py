@@ -25,6 +25,19 @@ class User(Base, UserMixin):
     email_confirmed = Column(Integer, default=0)
     
     pets = relationship("Pet", backref="owner")
+
+    def as_dictionary(self):
+        user = {
+            "id": self.id, 
+            "first_name": self.first_name, 
+            "last_name": self.last_name, 
+            "email": self.email, 
+            "password": self.password, 
+            "join_date": str(self.join_date),
+            "conf_uuid": self.conf_uuid, 
+            "email_confirmed": self.email_confirmed
+        }
+        return user
     
 class Pet(Base):
     __tablename__ = "pets"

@@ -19,7 +19,7 @@ from . import app, mail
 
 @app.route("/api/join", methods=["POST"]) 
 def signup_post(): 
-	data = request.json
+	data = request.get_json()
 	first_name = data["first_name"]
 	last_name = data["last_name"]
 	email = data["email"]
@@ -33,17 +33,20 @@ def signup_post():
 		session.add(user)
 		session.commit()
 		user_id = session.query(User.id).filter(User.email == email).first()
-		data = json.dumps({"message": "New user created successfully", "user_id": user_id})
+		user_info = user.as_dictionary()
+		data = json.dumps({"message": "New user created successfully", "user_id": user_id, "user_info": user_info})
+		print (data)
 		login_user(user)
 		return Response(data, 201, mimetype="application/json")
 
 	else: 
 		data = json.dumps({"message": "User already exists"})
+		print (data)
 		return Response(data, 200, mimetype="application/json")	
 
 @app.route("/api/login", methods=["POST"]) 
 def login_post():	
-	data = request.json	 
+	data = request.get_json()	 
 	email = data["email"]
 	password = data["password"]
 	user = session.query(User).filter(User.email==email).first()
@@ -79,7 +82,7 @@ def profile_getDetails():
 @app.route("/api/profile-update", methods = ["POST"])
 def profile_updateDetails(): 
 	user_id = current_user.id
-	data = request.json
+	data = request.get_json()
 	first_name = data["first-name"]
 	last_name = data["last-name"]
 	current_email = data["current-email"]
@@ -141,7 +144,7 @@ def pets_get():
 
 @app.route("/api/add-pet", methods = ["POST"])
 def add_pet_post(): 
-	data = request.json
+	data = request.get_json()
 	pet_name = data["pet-name"]
 	pet_birthdate = data["pet-birthdate"]
 	owner_id = current_user.id
@@ -155,7 +158,7 @@ def add_pet_post():
 
 @app.route("/api/update-pet", methods = ["POST"])
 def update_pet_post(): 
-	data = request.json
+	data = request.get_json()
 	pet_id = data["pet-id"]
 	pet_name = ''
 	pet_birthdate = ''
@@ -440,7 +443,7 @@ def delete_vaccine(id):
 
 @app.route("/api/confirm-email", methods=["POST"])
 def send_confirm_email(): 
-	data = request.json
+	data = request.get_json()
 	user_id = data["user_id"][0]
 	user = session.query(User).filter(User.id == user_id).first()
 
@@ -461,18 +464,21 @@ def confirm_email():
 	email = request.args.get('email')
 	conf_uuid = request.args.get('gid')
 	user = session.query(User).filter(User.email == email).first()
+	confirmed = 'no'
 
 	if (user.conf_uuid == conf_uuid):
 		user.email_confirmed = 1
 		session.commit()
+		confirmed = 'yes'
 
-	return redirect(url_for("index"))
+
+	return redirect(url_for("index", confirmed=confirmed))
 
 
 
 @app.route("/api/forgot-password", methods=["POST"])
 def send_forgot_password_email(): 
-	data = request.json
+	data = request.get_json()
 	email = data["email"]
 	user = session.query(User).filter(User.email == data["email"]).first()
 	print (user.email)
@@ -492,7 +498,7 @@ def send_forgot_password_email():
 
 @app.route("/api/reset-password", methods=["POST"])
 def reset_password(): 
-	data = request.json
+	data = request.get_json()
 	email = data["email"]
 	gid = data["gid"]
 	newPassword = data["new-password"]
