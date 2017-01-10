@@ -3,5 +3,6 @@ sqlalchemy
 flask-login
 flask-script
 flask-migrate
+flask-mail
 mistune
 psycopg2
