@@ -123,8 +123,6 @@ def profile_updateDetails():
 
 
 @app.route("/api/pets", methods=["GET"])
-@decorators.accept("application/json")
-#@nocache
 def pets_get(): 
 	"""Get list of pets"""
 
